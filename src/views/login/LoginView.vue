@@ -1,32 +1,26 @@
 <template>
     <div class="flex w-full h-screen overflow-y-hidden">
         <div class="left">
-            <h1 class="animation a1 title font-bold">MonitorS4</h1>
-            <img src="../../assets/login/logo-sysnet.png" class="animation a6" style="margin: 0 auto 10px;width: 150px">
-            <div class="header">
-                <p class="animation a2"></p>
-            </div>
+            <img src="../../assets/login/logo_aula20.png" class="animation a6" style="margin: 0 auto 10px;width: 300px">
             <div class="flex justify-center">
                 <form id="login-form" class="lg:w-[80%] w-full flex flex-col justify-center text-center">
-                    <div class="text-subtitle-1 text-medium-emphasis text-start">Usuario</div>
 
-                    <v-text-field color="deep-purple-lighten-2" density="compact" placeholder="Ingrese su usuario"
+                    <div class="text-start text-gray-600 pb-1">Usuario</div>
+                    <v-text-field color="teal-lighten-2" density="compact" placeholder="Ingrese su usuario"
                         prepend-inner-icon="mdi mdi-account" variant="outlined" v-model="username"></v-text-field>
-
-                    <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-                        Contraseña
-
+                    <div class="flex justify-between">
+                        <span class="text-gray-600 pb-1">Contraseña</span>
                         <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer"
                             target="_blank">
                             Olvidaste tu contraseña?</a>
                     </div>
-                    <v-text-field color="deep-purple-lighten-2" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                    <v-text-field color="teal-lighten-2" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                         :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingrese su contraseña"
                         prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"
                         v-model="password"></v-text-field>
                     <div>
                         <v-col cols="auto">
-                            <v-btn size="large" color="deep-purple" @click="validateCredential">Ingresar</v-btn>
+                            <v-btn size="large" color="teal-lighten-1" @click="validateCredential">Ingresar</v-btn>
                         </v-col>
                     </div>
                 </form>
@@ -38,24 +32,33 @@
 </template>
   
 <script>
-import { onMounted, ref } from "vue"
-/* eslint-disable */ 
-import { loginApi } from '@/services/login/LoginService';
+import { ref } from "vue"
+import { loginApi } from '@/api/login/LoginService';
+import { basicAlert } from '@/helpers/SweetAlert';
+import store from '@/store';
+import { useRouter } from 'vue-router';
 
 export default ({
     setup() {
         const username = ref('');
         const password = ref('');
-        onMounted(() => {
+        const router = useRouter();
 
-        })
-        const validateCredential = () => {
-            console.log("---------VALIDANDO CREDENCIALES------------")
-            console.log(username.value)
-            console.log(password.value)
-            loginApi(username.value, password.value)
+        const validateCredential = async () => {
+            await loginApi(username.value, password.value)
                 .then(response => {
-                    console.log(response.data)
+                    if (response.data.status == true) {
+                        store.commit('setUsuario', response.data.data.username);
+                        store.commit('setRol', response.data.data.rol);
+                        store.commit('setCodigo', response.data.data.codigo);
+                        store.commit('setIsAuthenticated', true);
+                        router.push('/');
+                    } else {
+                        basicAlert(() => { }, 'warning', 'Credenciales incorrectas', 'Verifique su usuario y contraseña') 
+                    }
+                })
+                .catch(() => {
+                    basicAlert(() => { }, 'error', 'Error de conexión', 'Hubo un problema de conexión con el origen de datos')
                 })
         }
         return {
@@ -99,7 +102,7 @@ export default ({
     flex: 1;
     background-color: rgba(72, 128, 150, 0.418);
     transition: 1s;
-    background-image: url('../../assets/login/portada_aula20.jpg');
+    background-image: url('../../assets/login/portada_login_3.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -140,41 +143,9 @@ export default ({
     animation-fill-mode: both;
 }
 
-.animation.title {
-    text-align: center;
-    color: #535699;
-    font-family: 'Poppins', sans-serif;
-    font-size: 40px;
-}
-
-.a1 {
-    -webkit-animation-delay: .9s;
-    animation-delay: .9s;
-}
-
-.a2 {
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-}
-
-.a3 {
-    -webkit-animation-delay: 1.2s;
-    animation-delay: 1.2s;
-}
-
-.a4 {
-    -webkit-animation-delay: 1.4s;
-    animation-delay: 1.4s;
-}
-
-.a5 {
-    -webkit-animation-delay: 1.6s;
-    animation-delay: 1.6s;
-}
-
 .a6 {
     -webkit-animation-delay: 1.8s;
-    animation-delay: 1.8s;
+    animation-delay: 1.3s;
 }
 
 @-webkit-keyframes fadeInUp {
