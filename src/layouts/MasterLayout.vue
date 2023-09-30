@@ -28,7 +28,7 @@ import SidebarLayout from './SidebarLayout.vue';
 import NavMobile from './NavMobile.vue';
 import store from '@/store';
 import MenuAsPopover from '@/components/generales/MenuAsPopover.vue';
-import avatarImage from "@/assets/login/iconuser_hombre.png";
+import avatarImage from "@/assets/home/iconuser_hombre.png";
 
 export default {
   components: { SidebarLayout, NavMobile, MenuAsPopover },

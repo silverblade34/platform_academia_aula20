@@ -2,32 +2,8 @@
     <h1 class="font-bold text-xl text-gray-500">Dashboard</h1>
     <div class="pt-5">
         <div class="grid grid-cols-4 gap-6 pb-6">
-            <CardResume v-for="card in listCards" :dataCard="card" :key="card.title"/>
-            <div class="rounded-lg bg-white p-6 shadow-sm flex items-center">
-                <div class="w-full">
-                    <div>
-                        <p class="font-bold number_card text-gray-500">Cursos con mejor perfomance</p>
-                    </div>
-                    <div class="flex gap-3 pt-1">
-                        <div class="flex items-center">
-                            <div class="text-sm">
-                                <p>Geometria</p>
-                                <p>Literatura</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center w-full">
-                            <div class="w-full">
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 my-3">
-                                    <div class="bg-yellow-400 h-2.5 rounded-full" style="width: 45%"></div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 my-3">
-                                    <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 45%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <CardResume v-for="card in listCards" :dataCard="card" :key="card.title" />
+            <CardPerfomance />
         </div>
         <div class="grid grid-cols-3 gap-6 pb-6">
             <BarChart />
@@ -118,39 +94,41 @@ import BarChart from '@/components/home/BarChart.vue';
 import DoughnutChart from '@/components/home/DoughnutChart.vue';
 import LineChart from '@/components/home/LineChart.vue';
 import CardResume from '@/components/home/CardResume.vue';
+import CardPerfomance from '@/components/home/CardPerfomance.vue';
 
 export default ({
     components: {
         BarChart,
         DoughnutChart,
         LineChart,
-        CardResume
+        CardResume,
+        CardPerfomance
     },
-setup(){
-    const listCards = [
-        {
-            title: "Simulacros realizados",
-            message: "Puedes realizar simulacros ilimitadamente, arriesgate !!",
-            bg_color: "blue",
-            number: 69
-        },
-        {
-            title: "Simulacros aprobados",
-            message: "La mejor forma de predecir el futuro es crearlo!!",
-            bg_color: "green",
-            number: 29
-        },
-        {
-            title: "Simulacros desaprobados",
-            message: "Recuerda que puede solicitar una asesoria personalizada",
-            bg_color: "red",
-            number: 40
+    setup() {
+        const listCards = [
+            {
+                title: "Simulacros realizados",
+                message: "Puedes realizar simulacros ilimitadamente, arriesgate !!",
+                bg_color: "bg-blue-400",
+                number: 69
+            },
+            {
+                title: "Simulacros aprobados",
+                message: "La mejor forma de predecir el futuro es crearlo!!",
+                bg_color: "bg-green-400",
+                number: 29
+            },
+            {
+                title: "Simulacros desaprobados",
+                message: "Recuerda que puede solicitar una asesoria personalizada",
+                bg_color: "bg-red-400",
+                number: 40
+            }
+        ]
+        return {
+            listCards
         }
-    ]
-    return {
-        listCards
     }
-}
 })
 </script>
 <style>

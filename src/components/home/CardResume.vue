@@ -6,7 +6,7 @@
         </div>
         <div>
             <span :class="`h-[4rem] w-[4rem] flex items-center text-xl
-                    justify-center rounded-lg bg-${dataCard.bg_color}-400 font-extrabold text-white number_card`">{{dataCard.number}}</span>
+                    justify-center rounded-lg ${dataCard.bg_color} font-extrabold text-white number_card`">{{dataCard.number}}</span>
         </div>
     </div>
 </template>
