@@ -2,15 +2,12 @@
     <div class="text-center">
         <v-menu v-model="menu" :close-on-content-click="false" location="end">
             <template v-slot:activator="{ props }">
-                <v-list v-bind="props" class="cursor-pointer">
-                    <v-list-item class="text-start text-xs"
-                        prepend-avatar="https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824144_640.png"
-                        :title="username" :subtitle="rol">
-                    </v-list-item>
-                </v-list>
+                <i v-bind="props"
+                    :class="['fa-solid fa-chevron-down fa-sm text-gray-600 cursor-pointer', { rotated: isRotated }]"
+                    @click="rotateIcon"></i>
             </template>
 
-            <v-card min-width="300">
+            <v-card min-width="150">
                 <v-list>
                     <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="John Leider"
                         subtitle="Founder of Vuetify">
@@ -22,32 +19,33 @@
                 </v-list>
 
                 <v-divider></v-divider>
-
                 <v-list>
-                    <v-list-item>
-                        <v-switch v-model="message" color="purple" label="Enable messages" hide-details></v-switch>
-                    </v-list-item>
-
-                    <v-list-item>
-                        <v-switch v-model="hints" color="purple" label="Enable hints" hide-details></v-switch>
+                    <v-list-item class="px-5">
+                        <div class="cursor-pointer transition 
+                        ease-in duration-100 flex justify-between rounded-lg items-center text-gray-400 text-sm">
+                            <span> Mi cuenta</span>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </div>
                     </v-list-item>
                 </v-list>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-
-                    <v-btn variant="text" @click="menu = false">
-                        Cancel
-                    </v-btn>
-                    <v-btn color="primary" variant="text" @click="menu = false">
-                        Save
-                    </v-btn>
-                </v-card-actions>
+                <v-divider></v-divider>
+                <v-list>
+                    <v-list-item class="px-3">
+                        <div class="py-2 px-5 bg-red-400 hover:bg-red-500 cursor-pointer transition 
+                        ease-in duration-100 flex justify-between rounded-lg items-center text-white text-sm"
+                            @click="logout">
+                            <span> Cerrar sesión</span>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </div>
+                    </v-list-item>
+                </v-list>
             </v-card>
         </v-menu>
     </div>
 </template>
 <script>
+import { ref } from "vue";
+
 export default {
     props: {
         username: String,
@@ -57,17 +55,39 @@ export default {
         fav: true,
         menu: false,
         message: false,
-        hints: true,
+        hints: true
     }),
+    setup() {
+        const isRotated = ref(false);
+
+        const rotateIcon = () => {
+            isRotated.value = !isRotated.value;
+        };
+        const logout = () => {
+            localStorage.clear();
+            location.reload();
+        }
+
+        return {
+            logout,
+            rotateIcon
+        }
+    }
 }
 </script>
 <style lang="scss">
+.rotated {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
 .v-list-item__content {
-    .v-list-item-title{
+    .v-list-item-title {
         font-size: 0.8rem !important;
     }
-    .v-list-item-subtitle{
-        font-size: 0.8rem !important;   
+
+    .v-list-item-subtitle {
+        font-size: 0.8rem !important;
     }
 }
 </style>

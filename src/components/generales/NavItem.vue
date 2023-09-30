@@ -1,13 +1,13 @@
 <template>
     <router-link v-if="!item.children.length" :href="item.href" class="button-link my-2 flex cursor-pointer w-full items-center py-3 px-4
-        font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-600" :to="item.to" :title="item.label">
+         text-gray-500 hover:bg-gray-100 hover:text-gray-600" :to="item.to" :title="item.label">
         <i :class="item.icon"></i>
         <span class="label">{{ item.label }}</span>
     </router-link>
     <Disclosure v-else v-slot="{ open }">
         <span class="p-0 py-0 path_desplegado">
             <DisclosureButton class="button-link flex rounded-md text-left w-full items-center py-3
-                px-4 text-l font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-600">
+                px-4 text-l  text-gray-500 hover:bg-gray-100 hover:text-gray-600">
                 <i :class="item.icon" class="text-gray-500"></i>
                 <span class="flex-1 label text-gray-500">{{ item.label }}</span>
                 <i :class="[open ? '-rotate-180' : '']" class="fa-solid fa-angle-down icono_arrow text-gray-500"></i>
@@ -52,6 +52,10 @@ export default ({
         background: rgb(236, 245, 255) !important;
         border-right: 3px solid rgb(45, 98, 214);
     }
+}
+
+.label{
+    font-family: 'Poppins', sans-serif;
 }
 
 .path_desplegado {

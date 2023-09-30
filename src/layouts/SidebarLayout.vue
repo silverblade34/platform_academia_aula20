@@ -2,10 +2,10 @@
     <div class="sidebarComponent">
         <div id="side-bar" class="sidebar h-full flex flex-col text-sm pt-3"
             :class="dataOpenSideBar == true ? 'side-bar-visible' : 'side-bar-close'">
-            <div class="w-full px-3 pt-3 pb-8 relative">
+            <div class="w-full px-3 pt-5 pb-8 relative">
                 <div class="w-full">
                     <div class="flex justify-center items-center">
-                        <img src="../assets/login/logo_aula20.png" alt="" class="w-[5rem] p-1 rounded-md bg-blue-900">
+                        <img src="../assets/login/logo_aula20.png" alt="" class="w-[8rem] rounded-md">
                     </div>
                     <!-- <span class="md:hidden lg:block title_empresa text-center pt-3"> {{ empresa }} </span> -->
                 </div>
@@ -39,6 +39,24 @@ export default {
                 label: "Dashboard",
                 children: [],
                 icon: "fa-solid fa-chart-pie mr-2"
+            },
+            {
+                to: "/cursos",
+                label: "Cursos",
+                children: [],
+                icon: "fa-solid fa-book-open mr-2"
+            },
+            {
+                to: "/simulacro",
+                label: "Simulacro",
+                children: [],
+                icon: "fa-solid fa-graduation-cap mr-2"
+            },
+            {
+                to: "/reporte",
+                label: "Reporte",
+                children: [],
+                icon: "fa-solid fa-table mr-2"
             }
         ]
         return { navItems };

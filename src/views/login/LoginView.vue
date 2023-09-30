@@ -1,15 +1,16 @@
 <template>
     <div class="flex w-full h-screen overflow-y-hidden">
         <div class="left">
-            <img src="../../assets/login/logo_aula20.png" class="animation a6" style="margin: 0 auto 10px;width: 300px">
+            <img src="../../assets/login/logo_aula20.png" class="animation a6 pb-10"
+                style="margin: 0 auto 10px;width: 220px">
             <div class="flex justify-center">
                 <form id="login-form" class="lg:w-[80%] w-full flex flex-col justify-center text-center">
 
-                    <div class="text-start text-gray-600 pb-1">Usuario</div>
+                    <span class="text-gray-600 pb-1 label text-start">Usuario</span>
                     <v-text-field color="teal-lighten-2" density="compact" placeholder="Ingrese su usuario"
                         prepend-inner-icon="mdi mdi-account" variant="outlined" v-model="username"></v-text-field>
                     <div class="flex justify-between">
-                        <span class="text-gray-600 pb-1">Contraseña</span>
+                        <span class="text-gray-600 pb-1 label">Contraseña</span>
                         <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer"
                             target="_blank">
                             Olvidaste tu contraseña?</a>
@@ -54,7 +55,7 @@ export default ({
                         store.commit('setIsAuthenticated', true);
                         router.push('/');
                     } else {
-                        basicAlert(() => { }, 'warning', 'Credenciales incorrectas', 'Verifique su usuario y contraseña') 
+                        basicAlert(() => { }, 'warning', 'Credenciales incorrectas', 'Verifique su usuario y contraseña')
                     }
                 })
                 .catch(() => {
@@ -74,11 +75,8 @@ export default ({
 </script>
   
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
-
-
 .left {
+    font-family: 'Poppins', sans-serif;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
@@ -92,8 +90,6 @@ export default ({
     animation-fill-mode: both;
     -webkit-animation-delay: .5s;
     animation-delay: .5s;
-    margin-top: -50px;
-
 }
 
 #right {

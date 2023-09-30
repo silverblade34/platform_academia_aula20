@@ -3,8 +3,13 @@
     <div class="w-full h-full flex overflow-hidden">
       <SidebarLayout class="sidebarLayout" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <div class="w-full h-full overflow-hidden">
-        <div class="w-full flex justify-end headerLayout items-center px-4">
-            <MenuAsPopover :username="username" :rol="rol"/>
+        <div class="w-full flex justify-end headerLayout items-center pr-5">
+          <v-list class="cursor-pointer">
+            <v-list-item class="text-start text-xs" :prepend-avatar="avatarPath" :title="`Hola, ${username}`"
+              :subtitle="rol">
+            </v-list-item>
+          </v-list>
+          <MenuAsPopover :username="username" :rol="rol" />
         </div>
         <div class="main-container w-full h-full overflow-y-scroll">
           <router-view />
@@ -23,9 +28,13 @@ import SidebarLayout from './SidebarLayout.vue';
 import NavMobile from './NavMobile.vue';
 import store from '@/store';
 import MenuAsPopover from '@/components/generales/MenuAsPopover.vue';
+import avatarImage from "@/assets/login/iconuser_hombre.png";
 
 export default {
   components: { SidebarLayout, NavMobile, MenuAsPopover },
+  data: () => ({
+    avatarPath: avatarImage
+  }),
   setup() {
     const username = store.state.usuario;
     const rol = store.state.rol;
@@ -82,10 +91,13 @@ export default {
   position: sticky;
   background-color: transparent;
   top: 0;
+  box-shadow: 0px 5px 5px -5px rgba(117, 117, 117, 0.09);
+  -webkit-box-shadow: 1px 0px 5px 1px rgba(117, 117, 117, 0.09);
+  -moz-box-shadow: 1px 0px 5px 1px rgba(117, 117, 117, 0.09);
 }
 
 .main-container {
-  background-color: #f8f4fc;
+  background-color: #fafbfd;
   padding: 2rem;
 }
 

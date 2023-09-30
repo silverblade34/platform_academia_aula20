@@ -12,7 +12,9 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Montserrat:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -29,14 +31,14 @@ export default {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 #app {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: #2c3e50;
 }
 
@@ -45,14 +47,14 @@ main {
   width: 100%;
   display: flex;
 }
+
 .modal-enter-active,
 .modal-leave-active {
-    transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 
 .modal-enter-from,
 .modal-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
-
 </style>
