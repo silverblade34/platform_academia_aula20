@@ -14,7 +14,7 @@
                     <i class="fa-solid fa-circle-arrow-left fa-2xl cursor-pointer"></i>
                 </div>
             </div>
-            <nav class="nav">
+            <nav class="nav overflow-y-auto">
                 <NavItem class="p-2 py-2" :item="item" v-for="item in navItems" :key="item.label"
                     :expandido="dataOpenSideBar" />
             </nav>
@@ -24,6 +24,7 @@
 <script>
 import { ref } from 'vue';
 import NavItem from '@/components/generales/NavItem.vue';
+import store from '@/store';
 
 export default {
     props: {
@@ -33,32 +34,43 @@ export default {
     components: { NavItem },
     setup() {
         const navItems = ref([]);
-        navItems.value = [
-            {
-                to: "/",
-                label: "Dashboard",
-                children: [],
-                icon: "fa-solid fa-chart-pie mr-2"
-            },
-            {
-                to: "/cursos",
-                label: "Cursos",
-                children: [],
-                icon: "fa-solid fa-book-open mr-2"
-            },
-            {
-                to: "/simulacro",
-                label: "Simulacro",
-                children: [],
-                icon: "fa-solid fa-graduation-cap mr-2"
-            },
-            {
-                to: "/reporte",
-                label: "Reporte",
-                children: [],
-                icon: "fa-solid fa-table mr-2"
-            }
-        ]
+        if (store.state.rol == "ALUMNO"){
+            navItems.value = [
+                {
+                    to: "/",
+                    label: "Dashboard",
+                    children: [],
+                    icon: "fa-solid fa-chart-pie mr-2"
+                },
+                {
+                    to: "/cursos",
+                    label: "Cursos",
+                    children: [],
+                    icon: "fa-solid fa-book-open mr-2"
+                },
+                {
+                    to: "/simulacro",
+                    label: "Simulacro",
+                    children: [],
+                    icon: "fa-solid fa-graduation-cap mr-2"
+                },
+                {
+                    to: "/reporte",
+                    label: "Reporte",
+                    children: [],
+                    icon: "fa-solid fa-table mr-2"
+                }
+            ]
+        }else if(store.state.rol == "PROFESOR"){
+            navItems.value = [
+                {
+                    to: "/especialidades",
+                    label: "Especialidades",
+                    children: [],
+                    icon: "fa-solid fa-circle-question mr-2"
+                }
+            ]
+        }
         return { navItems };
     },
 }

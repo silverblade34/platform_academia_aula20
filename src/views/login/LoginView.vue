@@ -53,7 +53,12 @@ export default ({
                         store.commit('setRol', response.data.data.rol);
                         store.commit('setCodigo', response.data.data.codigo);
                         store.commit('setIsAuthenticated', true);
-                        router.push('/');
+                        if(response.data.data.rol == "ALUMNO"){
+                            router.push('/');
+                        }else if(response.data.data.rol == "PROFESOR"){
+                            router.push('/especialidades');
+                        }
+
                     } else {
                         basicAlert(() => { }, 'warning', 'Credenciales incorrectas', 'Verifique su usuario y contraseña')
                     }

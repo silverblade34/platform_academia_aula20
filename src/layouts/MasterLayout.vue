@@ -9,7 +9,7 @@
               :subtitle="rol">
             </v-list-item>
           </v-list>
-          <MenuAsPopover :username="username" :rol="rol" />
+          <MenuAsPopover :username="username" :rol="rol" :avatarPath="avatarPath"/>
         </div>
         <div class="main-container w-full h-full overflow-y-scroll">
           <router-view />

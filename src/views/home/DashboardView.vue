@@ -1,6 +1,6 @@
 <template>
     <h1 class="font-bold text-xl text-gray-500">Dashboard</h1>
-    <div class="pt-5">
+    <div class="py-5">
         <div class="grid grid-cols-4 gap-6 pb-6">
             <CardResume v-for="card in listCards" :dataCard="card" :key="card.title" />
             <CardPerfomance />

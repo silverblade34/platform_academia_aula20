@@ -1,16 +1,16 @@
 <template>
     <div class="text-center">
-        <v-menu v-model="menu" :close-on-content-click="false" location="end">
+        <v-menu v-model="menu" :close-on-content-click="false" location="end" @click:outside="rotateIcon">
             <template v-slot:activator="{ props }">
                 <i v-bind="props"
-                    :class="['fa-solid fa-chevron-down fa-sm text-gray-600 cursor-pointer', { rotated: isRotated }]"
+                    :class="['fa-solid fa-chevron-down fa-xs text-gray-400 cursor-pointer', { 'rotated': isRotated }]"
                     @click="rotateIcon"></i>
             </template>
 
-            <v-card min-width="150">
+            <v-card min-width="200">
                 <v-list>
-                    <v-list-item prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg" title="John Leider"
-                        subtitle="Founder of Vuetify">
+                    <v-list-item :prepend-avatar="avatarPath" :title="username"
+                        :subtitle="rol">
                         <template v-slot:append>
                             <v-btn variant="text" :class="fav ? 'text-red' : ''" icon="mdi-heart"
                                 @click="fav = !fav"></v-btn>
@@ -21,10 +21,17 @@
                 <v-divider></v-divider>
                 <v-list>
                     <v-list-item class="px-5">
-                        <div class="cursor-pointer transition 
-                        ease-in duration-100 flex justify-between rounded-lg items-center text-gray-400 text-sm">
-                            <span> Mi cuenta</span>
-                            <i class="fa-solid fa-right-from-bracket"></i>
+                        <div class="cursor-pointer transition hover:text-blue-300
+                        ease-in duration-100 flex gap-2 rounded-lg items-center text-gray-400 text-sm">
+                            <i class="fa-solid fa-user"></i>
+                            <span> Perfil</span>
+                        </div>
+                    </v-list-item>
+                    <v-list-item class="px-5">
+                        <div class="cursor-pointer transition hover:text-blue-300
+                        ease-in duration-100 flex gap-2 rounded-lg items-center text-gray-400 text-sm">
+                            <i class="fa-solid fa-gear"></i>
+                            <span> Configuración</span>
                         </div>
                     </v-list-item>
                 </v-list>
@@ -49,7 +56,8 @@ import { ref } from "vue";
 export default {
     props: {
         username: String,
-        rol: String
+        rol: String,
+        avatarPath: String
     },
     data: () => ({
         fav: true,
@@ -70,15 +78,20 @@ export default {
 
         return {
             logout,
-            rotateIcon
+            rotateIcon,
+            isRotated
         }
     }
 }
 </script>
 <style lang="scss">
+i {
+    transition: transform 0.3s ease;
+    /* Agrega esta línea */
+}
+
 .rotated {
     transform: rotate(180deg);
-    transition: transform 0.3s ease;
 }
 
 .v-list-item__content {
