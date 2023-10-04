@@ -26,6 +26,16 @@ const router = createRouter({
                     name: "especialidades",
                     path: "especialidades",
                     component: () => import("@/views/specialties/SpecialtiesView.vue"),
+                },
+                {
+                    name: "temarioscurso_profesores",
+                    path: "temarioscurso_profesores",
+                    component: () => import("@/views/specialties/SyllabusView.vue"),
+                },
+                {
+                    name: "administrar_preguntas",
+                    path: "administrar_preguntas",
+                    component: () => import("@/views/specialties/QuestionsView.vue"),
                 }
             ]
         },
