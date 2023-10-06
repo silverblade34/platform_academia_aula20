@@ -2,7 +2,8 @@
     <h1 class="font-bold text-xl text-gray-500">Especialidades</h1>
     <div class="py-5">
         <div class="grid grid-cols-4 gap-5 w-full">
-            <CardSpecialtie v-for="specialtie in listCardsSpecialtie" :title="specialtie" :key="specialtie" />
+            <CardSpecialtie v-for="specialtie in listCardsSpecialtie" :title="specialtie.curso" :id="specialtie.id"
+                :key="specialtie" />
         </div>
     </div>
 </template>
@@ -17,8 +18,14 @@ export default ({
     },
     setup() {
         const listCardsSpecialtie = ref([
-            'Geometria',
-            'Trigonometria'
+            {
+                curso: 'Geometria',
+                id: 1
+            },
+            {
+                curso: 'Trigonometria',
+                id: 2
+            }
         ])
         return {
             listCardsSpecialtie

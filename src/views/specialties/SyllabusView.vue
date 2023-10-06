@@ -1,5 +1,5 @@
 <template>
-    <section class="min-h-full w-full lg:pb-[2rem]">
+    <section class="min-h-full w-full lg:pb-[3rem]">
         <h1 class="font-bold text-xl text-gray-500">Temarios del curso</h1>
         <div class="py-5">
             <div class="grid grid-cols-4 gap-5 w-full">
@@ -14,6 +14,9 @@ import CardSyllabus from '@/components/specialties/CardSyllabus.vue';
 export default ({
     components: {
         CardSyllabus
+    },
+    props: {
+        id: String
     }
 })
 </script>

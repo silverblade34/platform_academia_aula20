@@ -29,8 +29,21 @@ const router = createRouter({
                 },
                 {
                     name: "temarioscurso_profesores",
-                    path: "temarioscurso_profesores",
+                    path: "temarioscurso_profesores/:id",
+                    props: true,
                     component: () => import("@/views/specialties/SyllabusView.vue"),
+                    beforeEnter: (to, from, next) => {
+                        const hasIdParam = to.params.id;
+                        console.log(hasIdParam)
+                        if (!hasIdParam) {
+                            console.log("--------------------1")
+                            // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
+                            next({ name: 'especialidades' });
+                        } else {
+                            console.log("--------------------2")
+                            next(); // Continuar con la navegación si se proporciona un :id
+                        }
+                    },
                 },
                 {
                     name: "administrar_preguntas",
@@ -57,10 +70,20 @@ router.beforeEach((to, from, next) => {
         // Si la ruta requiere autenticación y el usuario no está autenticado, redirigir a la página de inicio de sesión
         next({ name: 'login' });
     } else if (to.name === 'login' && store.state.isAuthenticated) {
-        next({ name: 'dashboard' }); // Redirige al dashboard1 si ya está autenticado y trata de acceder al login
+        if (store.state.rol == "ALUMNO") {
+            next({ name: 'dashboard' }); // Redirige al dashboard1 si ya está autenticado y trata de acceder al login
+        } else if (store.state.rol == "PROFESOR") {
+            next({ name: 'especialidades' });
+        }
     } else {
         // Permitir la navegación
-        next();
+        if (to.path === '/' && store.state.rol == "ALUMNO") {
+            next({ name: 'dashboard' });
+        } else if (to.path === '/' && store.state.rol == "PROFESOR") {
+            next({ name: 'especialidades' });
+        } else {
+            next();
+        }
     }
 });
 export default router;
