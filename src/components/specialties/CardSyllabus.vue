@@ -20,33 +20,35 @@
                 </v-card-text>
             </div>
         </v-card-item>
-        <v-card-actions>
-            <v-btn size="small" color="blue-grey-lighten-4" variant="flat">
-                Ver
-            </v-btn>
-            <v-btn size="small" color="teal-lighten-2" variant="flat">
-                Crear
-            </v-btn>
+        <v-card-actions class="flex justify-end px-5">
+            <router-link :to="'/administrar_preguntas/' + id">
+                <v-btn size="small" color="teal-lighten-2" variant="flat">
+                    Crear
+                </v-btn>
+            </router-link>
         </v-card-actions>
     </v-card>
 </template>
 <script>
- export default {
+export default {
+    props: {
+        id: String
+    },
     data: () => ({
-      messages: [
-        {
-          message: `Triángulos. Congruencia de triángulos. `,
-          color: 'deep-purple-lighten-1',
-        },
-        {
-          message: 'Desigualdades geométricas. ',
-          color: 'green',
-        },
-        {
-          message: 'Lugares geométricos de la mediatriz de un segmento y la bisectriz de un ángulo.',
-          color: 'deep-purple-lighten-1',
-        },
-      ],
+        messages: [
+            {
+                message: `Triángulos. Congruencia de triángulos. `,
+                color: 'deep-purple-lighten-1',
+            },
+            {
+                message: 'Desigualdades geométricas. ',
+                color: 'green',
+            },
+            {
+                message: 'Lugares geométricos de la mediatriz de un segmento y la bisectriz de un ángulo.',
+                color: 'deep-purple-lighten-1',
+            },
+        ],
     }),
-  }
+}
 </script>

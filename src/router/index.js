@@ -36,19 +36,27 @@ const router = createRouter({
                         const hasIdParam = to.params.id;
                         console.log(hasIdParam)
                         if (!hasIdParam) {
-                            console.log("--------------------1")
                             // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
                             next({ name: 'especialidades' });
                         } else {
-                            console.log("--------------------2")
                             next(); // Continuar con la navegación si se proporciona un :id
                         }
                     },
                 },
                 {
                     name: "administrar_preguntas",
-                    path: "administrar_preguntas",
+                    path: "administrar_preguntas/:id",
+                    props: true,
                     component: () => import("@/views/specialties/QuestionsView.vue"),
+                    beforeEnter: (to, from, next) => {
+                        const hasIdParam = to.params.id;
+                        if (!hasIdParam) {
+                            // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
+                            next({ name: 'especialidades' });
+                        } else {
+                            next(); // Continuar con la navegación si se proporciona un :id
+                        }
+                    },
                 }
             ]
         },

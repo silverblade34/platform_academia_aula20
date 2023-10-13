@@ -3,7 +3,7 @@
         <h1 class="font-bold text-xl text-gray-500">Temarios del curso</h1>
         <div class="py-5">
             <div class="grid grid-cols-4 gap-5 w-full">
-                <CardSyllabus v-for="i in 10" :key="i" />
+                <CardSyllabus v-for="i in 10" :key="i" :id="i"/>
             </div>
         </div>
     </section>
