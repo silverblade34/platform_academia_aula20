@@ -14,7 +14,7 @@ const router = createRouter({
             children: [
                 {
                     name: "dashboard",
-                    path: "",
+                    path: "dashboard",
                     component: () => import("@/views/home/DashboardView.vue"),
                 },
                 {
@@ -83,16 +83,17 @@ router.beforeEach((to, from, next) => {
         } else if (store.state.rol == "PROFESOR") {
             next({ name: 'especialidades' });
         }
-    } else {
+    } else if (to.path === '/' && store.state.isAuthenticated) {
         // Permitir la navegación
-        if (to.path === '/' && store.state.rol == "ALUMNO") {
+        if (store.state.rol == "ALUMNO") {
             next({ name: 'dashboard' });
-        } else if (to.path === '/' && store.state.rol == "PROFESOR") {
+        } else if (store.state.rol == "PROFESOR") {
             next({ name: 'especialidades' });
-        } else {
-            next();
         }
+    } else {
+        next();
     }
+
 });
 export default router;
 

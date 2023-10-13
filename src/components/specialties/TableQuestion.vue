@@ -1,12 +1,8 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    class="elevation-1"
-  >
-  <template v-slot:[`item.actions`]="{ item }">
-    <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-      <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+  <v-data-table :headers="headers" :items="desserts" class="elevation-1">
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-icon @click="editItem(item)" color="green">mdi-pencil</v-icon>
+      <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
     </template>
   </v-data-table>
 </template>
@@ -118,12 +114,19 @@ export default ({
       ],
     }
   },
-  methods: {
-    getColor(calories) {
-      if (calories > 400) return 'red'
-      else if (calories > 200) return 'orange'
-      else return 'green'
-    },
-  },
+  setup() {
+    const editItem = (item) => {
+      console.log("--EDITAR--")
+      console.log(item.columns)
+    }
+    const deleteItem = (item) => {
+      console.log("--ELIMINAR--")
+      console.log(item.columns)
+    }
+    return {
+      editItem,
+      deleteItem
+    }
+  }
 })
 </script>

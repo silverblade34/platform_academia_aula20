@@ -37,7 +37,7 @@ export default {
         if (store.state.rol == "ALUMNO"){
             navItems.value = [
                 {
-                    to: "/",
+                    to: "/dashboard",
                     label: "Dashboard",
                     children: [],
                     icon: "fa-solid fa-chart-pie mr-2"
