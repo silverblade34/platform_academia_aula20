@@ -57,6 +57,26 @@ const router = createRouter({
                             next(); // Continuar con la navegación si se proporciona un :id
                         }
                     },
+                },
+                {
+                    name: "cursos/detalles",
+                    path: "cursos/detalles/:id",
+                    props: true,
+                    component: () => import("@/views/courses/DetailsView.vue"),
+                    beforeEnter: (to, from, next) => {
+                        const hasIdParam = to.params.id;
+                        if (!hasIdParam) {
+                            // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
+                            next({ name: 'cursos' });
+                        } else {
+                            next(); // Continuar con la navegación si se proporciona un :id
+                        }
+                    },
+                },
+                {
+                    name: "cursos/examen",
+                    path: "cursos/examen",
+                    component: () => import("@/views/courses/ExamView.vue")
                 }
             ]
         },

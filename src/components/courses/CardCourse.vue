@@ -1,16 +1,46 @@
 <template>
-    <div class="rounded-lg bg-white py-4 px-6 flex shadow-sm gap-4 items-center">
-        <div>
-            <img src="../../assets/courses/libro-abierto.png" alt="" class="h-10">
-        </div>
-        <div>
-            <p class="font-bold number_card text-gray-500 pb-2">Geometria</p>
-            <button class="text-xs px-3 py-2 rounded-lg bg-blue-400 text-white">Ver más --></button>
-        </div>
-    </div>
+    <v-card max-width="400">
+        <v-row dense>
+            <v-col cols="12">
+                <v-card color="white" theme="dark">
+                    <div class="d-flex flex-no-wrap justify-space-between border-red-500 px-3 py-1">
+                        <div class="card_course">
+                            <v-card-title class="text-lg text-gray-600">
+                                Trigonometria
+                            </v-card-title>
+
+                            <v-card-subtitle>Foster the People</v-card-subtitle>
+
+                            <v-card-actions>
+                                <router-link :to="'cursos/detalles/' + id">
+                                    <v-btn class="ms-2" variant="outlined" size="small" color="blue">
+                                        VER MÁS
+                                    </v-btn>
+                                </router-link>
+                            </v-card-actions>
+                        </div>
+
+                        <v-avatar class="ma-3" size="125" rounded="0">
+                            <v-img
+                                src="https://static.vecteezy.com/system/resources/previews/007/488/567/non_2x/geometry-course-concept-icon-geometrical-shapes-triangle-on-whiteboard-mathematical-problem-idea-thin-line-illustration-school-subjects-isolated-outline-drawing-editable-stroke-vector.jpg"></v-img>
+                        </v-avatar>
+                    </div>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-card>
 </template>
 <script>
-export default({
-    
+export default ({
+    name: "CardCourse",
+    props: {
+        title: String,
+        id: String
+    }
 })
 </script>
+<style>
+.card_course {
+    font-family: 'Montserrat', sans-serif !important;
+}
+</style>

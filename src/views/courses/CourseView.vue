@@ -1,8 +1,8 @@
 <template>
-    <h1 class="font-bold text-xl text-gray-500">Cursos</h1>
+    <h1 class="font-bold text-xl text-gray-500 title-views">Cursos</h1>
     <div class="py-5">
         <div class="grid grid-cols-4 gap-5">
-            <CardCourse v-for="course in listcourses" :key="course" />
+            <CardCourse v-for="course in listcourses" :key="course" :id="course"/>
         </div>
     </div>
 </template>

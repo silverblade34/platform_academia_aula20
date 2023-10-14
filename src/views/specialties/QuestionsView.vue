@@ -6,7 +6,7 @@
                 <span> <v-icon>mdi mdi-chevron-left</v-icon> Regresar</span>
             </div>
         </router-link>
-        <h1 class="font-bold text-xl text-teal-500">Preguntas del tema - {{ id }}</h1>
+        <h1 class="font-bold text-xl text-gray-500 title-views">Preguntas del tema - {{ id }}</h1>
         <div class="py-5">
             <TableQuestion />
         </div>

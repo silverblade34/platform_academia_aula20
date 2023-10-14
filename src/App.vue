@@ -57,4 +57,8 @@ main {
 .modal-leave-to {
   opacity: 0;
 }
+
+.title-views{
+  font-family: 'Poppins', sans-serif;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <h1 class="font-bold text-xl text-teal-500">Especialidades</h1>
+    <h1 class="font-bold text-xl text-gray-500 title-views">Especialidades</h1>
     <div class="py-5">
         <div class="grid grid-cols-4 gap-5 w-full">
             <CardSpecialtie v-for="specialtie in listCardsSpecialtie" :title="specialtie.curso" :id="specialtie.id"
