@@ -15,28 +15,43 @@ const router = createRouter({
                 {
                     name: "dashboard",
                     path: "dashboard",
-                    component: () => import("@/views/home/DashboardStudentView.vue"),
-                },
-                {
-                    name: "dashboard_admin",
-                    path: "dashboard_admin",
-                    component: () => import("@/views/home/DashboardAdminView.vue"),
+                    component: () => import("@/views/student/home/DashboardView.vue"),
                 },
                 {
                     name: "cursos",
                     path: "cursos",
-                    component: () => import("@/views/courses/CourseView.vue"),
+                    component: () => import("@/views/student/courses/CourseView.vue"),
+                },
+                {
+                    name: "cursos/detalles",
+                    path: "cursos/detalles/:id",
+                    props: true,
+                    component: () => import("@/views/student/courses/DetailsView.vue"),
+                    beforeEnter: (to, from, next) => {
+                        const hasIdParam = to.params.id;
+                        if (!hasIdParam) {
+                            // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
+                            next({ name: 'cursos' });
+                        } else {
+                            next(); // Continuar con la navegación si se proporciona un :id
+                        }
+                    },
+                },
+                {
+                    name: "cursos/examen",
+                    path: "cursos/examen",
+                    component: () => import("@/views/student/courses/ExamView.vue")
                 },
                 {
                     name: "especialidades",
                     path: "especialidades",
-                    component: () => import("@/views/specialties/SpecialtiesView.vue"),
+                    component: () => import("@/views/teachers/specialties/SpecialtiesView.vue"),
                 },
                 {
                     name: "temarioscurso_profesores",
                     path: "temarioscurso_profesores/:id",
                     props: true,
-                    component: () => import("@/views/specialties/SyllabusView.vue"),
+                    component: () => import("@/views/teachers/specialties/SyllabusView.vue"),
                     beforeEnter: (to, from, next) => {
                         const hasIdParam = to.params.id;
                         console.log(hasIdParam)
@@ -52,7 +67,7 @@ const router = createRouter({
                     name: "administrar_preguntas",
                     path: "administrar_preguntas/:id",
                     props: true,
-                    component: () => import("@/views/specialties/QuestionsView.vue"),
+                    component: () => import("@/views/teachers/specialties/QuestionsView.vue"),
                     beforeEnter: (to, from, next) => {
                         const hasIdParam = to.params.id;
                         if (!hasIdParam) {
@@ -64,24 +79,9 @@ const router = createRouter({
                     },
                 },
                 {
-                    name: "cursos/detalles",
-                    path: "cursos/detalles/:id",
-                    props: true,
-                    component: () => import("@/views/courses/DetailsView.vue"),
-                    beforeEnter: (to, from, next) => {
-                        const hasIdParam = to.params.id;
-                        if (!hasIdParam) {
-                            // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
-                            next({ name: 'cursos' });
-                        } else {
-                            next(); // Continuar con la navegación si se proporciona un :id
-                        }
-                    },
-                },
-                {
-                    name: "cursos/examen",
-                    path: "cursos/examen",
-                    component: () => import("@/views/courses/ExamView.vue")
+                    name: "dashboard_admin",
+                    path: "dashboard_admin",
+                    component: () => import("@/views/administrator/DashboardView.vue"),
                 },
                 {
                     name: "sedes",

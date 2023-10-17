@@ -34,8 +34,8 @@ export default ({
                 { title: 'Apellidos', align: 'start', key: 'lastName' },
                 { title: 'DNI', align: 'start', key: 'codigo' },
                 { title: 'Correo', align: 'start', key: 'email' },
-                { title: 'Usuario', key: 'user.username' },
-                { title: 'Fecha de creación', key: 'user.createdAt' },
+                { title: 'Usuario', key: 'username' },
+                { title: 'Fecha de creación', key: 'createdAt' },
                 { title: 'Acciones', key: 'actions' },
             ]
         }
@@ -43,7 +43,7 @@ export default ({
     setup(_, { emit }) {
 
         const deleteItem = (item) => {
-            emit('delete-item', {id: item.raw.id})
+            emit('delete-item', {id: item.raw.idUser})
         }
 
         const editItem = (item) => {

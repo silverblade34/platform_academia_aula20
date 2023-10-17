@@ -50,7 +50,7 @@ export default ({
                         loadData();
                     })
                     .catch(error => {
-                        basicAlert(() => { }, 'error', 'Hubo un error al crear Sede', error.message)
+                        basicAlert(() => { }, 'error', 'Hubo un error al crear sede', error.response.data.message)
                     })
             } else {
                 basicAlert(() => { }, 'warning', 'Campos vacios', "Revise los campos obligatorios")
@@ -68,7 +68,7 @@ export default ({
                     })
                     .catch(error => {
                         // Mostrar Sweet Alert de error al consumir el API
-                        basicAlert(() => { }, 'error', 'Error', error.message)
+                        basicAlert(() => { }, 'error', 'Error', error.response.data.message)
                     });
             }, '¿Estás seguro de eliminar esta sede?', 'Eliminar');
         }
@@ -89,7 +89,7 @@ export default ({
                         loadData();
                     })
                     .catch(error => {
-                        basicAlert(() => { }, 'error', 'Hubo un error al actualizar el campus', error.message)
+                        basicAlert(() => { }, 'error', 'Hubo un error al actualizar la sede', error.response.data.message)
                     })
             } else {
                 basicAlert(() => { }, 'warning', 'Campos vacios', "Revise los campos obligatorios")

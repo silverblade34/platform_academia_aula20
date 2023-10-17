@@ -6,18 +6,23 @@ export function finAllTeachersApi() {
     return axios.get(`${baseURL}/teacher`)
 }
 
-export function finOneCampusApi(id) {
-    return axios.get(`${baseURL}/campus/${id}`)
+export function finOneTeacherApi(id) {
+    return axios.get(`${baseURL}/teacher/${id}`)
 }
 
-export function createCampusApi(data) {
-    return axios.post(`${baseURL}/campus/create`, data)
+export function createTeacherApi(data) {
+    return axios.post(`${baseURL}/teacher/create`, {
+        "name": data.name,
+        "lastName": data.lastname,
+        "codigo": data.codigo,
+        "email": data.email,
+    })
 }
 
-export function updateCampusApi(id, data) {
-    return axios.patch(`${baseURL}/campus/${id}`, data)
-}
-
-export function deleteCampusApi(id) {
-    return axios.delete(`${baseURL}/campus/${id}`)
+export function updateTeacherApi(id, data) {
+    return axios.patch(`${baseURL}/teacher/${id}`, {
+        "name": data.name,
+        "lastName": data.lastname,
+        "email": data.email,
+    })
 }
