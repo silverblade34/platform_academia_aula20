@@ -15,7 +15,12 @@ const router = createRouter({
                 {
                     name: "dashboard",
                     path: "dashboard",
-                    component: () => import("@/views/home/DashboardView.vue"),
+                    component: () => import("@/views/home/DashboardStudentView.vue"),
+                },
+                {
+                    name: "dashboard_admin",
+                    path: "dashboard_admin",
+                    component: () => import("@/views/home/DashboardAdminView.vue"),
                 },
                 {
                     name: "cursos",
@@ -77,6 +82,21 @@ const router = createRouter({
                     name: "cursos/examen",
                     path: "cursos/examen",
                     component: () => import("@/views/courses/ExamView.vue")
+                },
+                {
+                    name: "sedes",
+                    path: "sedes",
+                    component: () => import("@/views/administrator/CampusView.vue")
+                },
+                {
+                    name: "universidades",
+                    path: "universidades",
+                    component: () => import("@/views/administrator/UniversitiesView.vue")
+                },
+                {
+                    name: "profesores",
+                    path: "profesores",
+                    component: () => import("@/views/administrator/TeachersView.vue")
                 }
             ]
         },
@@ -102,6 +122,8 @@ router.beforeEach((to, from, next) => {
             next({ name: 'dashboard' }); // Redirige al dashboard1 si ya está autenticado y trata de acceder al login
         } else if (store.state.rol == "PROFESOR") {
             next({ name: 'especialidades' });
+        } else if (store.state.rol == "ADMINISTRADOR") {
+            next({ name: 'dashboard_admin' });
         }
     } else if (to.path === '/' && store.state.isAuthenticated) {
         // Permitir la navegación
@@ -109,6 +131,8 @@ router.beforeEach((to, from, next) => {
             next({ name: 'dashboard' });
         } else if (store.state.rol == "PROFESOR") {
             next({ name: 'especialidades' });
+        } else if (store.state.rol == "ADMINISTRADOR") {
+            next({ name: 'dashboard_admin' });
         }
     } else {
         next();

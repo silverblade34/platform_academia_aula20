@@ -14,7 +14,7 @@
                     <i class="fa-solid fa-circle-arrow-left fa-2xl cursor-pointer"></i>
                 </div>
             </div>
-            <nav class="nav overflow-y-auto">
+            <nav class="nav overflow-y-auto h-full">
                 <NavItem class="p-2 py-2" :item="item" v-for="item in navItems" :key="item.label"
                     :expandido="dataOpenSideBar" />
             </nav>
@@ -34,7 +34,7 @@ export default {
     components: { NavItem },
     setup() {
         const navItems = ref([]);
-        if (store.state.rol == "ALUMNO"){
+        if (store.state.rol == "ALUMNO") {
             navItems.value = [
                 {
                     to: "/dashboard",
@@ -61,13 +61,53 @@ export default {
                     icon: "fa-solid fa-table mr-2"
                 }
             ]
-        }else if(store.state.rol == "PROFESOR"){
+        } else if (store.state.rol == "PROFESOR") {
             navItems.value = [
                 {
                     to: "/especialidades",
                     label: "Especialidades",
                     children: [],
                     icon: "fa-solid fa-circle-question mr-2"
+                }
+            ]
+        } else if (store.state.rol == "ADMINISTRADOR") {
+            navItems.value = [
+                {
+                    to: "/dashboard_admin",
+                    label: "Dashboard",
+                    children: [],
+                    icon: "fa-solid fa-chart-pie mr-2"
+                },
+                {
+                    to: "/sedes",
+                    label: "Sedes",
+                    children: [],
+                    icon: "fa-solid fa-map-location-dot mr-2"
+                },
+                {
+                    to: "/universidades",
+                    label: "Universidades",
+                    children: [],
+                    icon: "fa-solid fa-building-columns mr-2"
+                },              
+                {
+                    to: "",
+                    label: "Usuarios",
+                    children: [
+                        {
+                            to: "/profesores",
+                            label: "Profesores",
+                            children: [],
+                            icon: "fa-solid fa-person-chalkboard mr-2"
+                        },
+                        {
+                            to: "/alumnos",
+                            label: "Alumnos",
+                            children: [],
+                            icon: "fa-solid fa-graduation-cap mr-2"
+                        },
+                    ],
+                    icon: "fa-solid fa-users mr-2"
                 }
             ]
         }

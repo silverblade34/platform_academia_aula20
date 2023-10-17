@@ -16,3 +16,21 @@ export function basicAlert(callback, icon, title, message) {
     }
   });
 }
+
+//---------------------------------------MODAL CONFIRMAR ELIMINACIÓN--------------------------------------------
+
+export function confirmBasic(callback, message, confirm) {
+  Swal.fire({
+    icon: 'question',
+    html: `<p class="text-lg">${message}</p>`,
+    showCancelButton: true,
+    reverseButtons: true,
+    confirmButtonText: confirm,
+    confirmButtonColor: '#3b82f6',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      callback();
+    }
+  });
+}
