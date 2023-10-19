@@ -19,6 +19,10 @@ export function updateUserApi(id, data) {
     })
 }
 
+export function checkUsernameAvailabilityApi(username) {
+    return axios.get(`${baseURL}/user/usernameAvailability/${username}`)
+}
+
 export function deleteUserApi(id) {
     return axios.delete(`${baseURL}/user/${id}`)
 }
