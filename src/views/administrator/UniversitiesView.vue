@@ -4,12 +4,13 @@
         <ModalCreate @create-university="createUniversities" />
     </div>
     <div class="py-5">
-        <TableUniversities :desserts="listUniversities" @delete-item="deleteItem" @edit-item="openEditItem" />
+        <TableUniversities :desserts="listUniversities" @delete-item="deleteItem" @edit-item="openEditItem" @setting-item="onSettingItem"/>
     </div>
     <ModalUpdate :openModal="openModalEdit" :objectUniversity="objectUniversityEdit" @close-modal="openModalEdit = false"
         @update-university="updateUniversity" />
 </template>
 <script>
+/* eslint-disable */
 import ModalCreate from "@/components/universities/ModalCreate.vue";
 import ModalUpdate from "@/components/universities/ModalUpdate.vue";
 import {
@@ -82,6 +83,10 @@ export default ({
                 })
         }
 
+        const onSettingItem = (data) => {
+
+        }
+
         const updateUniversity = (data) => {
             if (data.name != "" && data.initials != "") {
                 updateUniversitiesApi(objectUniversityEdit.value.id, data)
@@ -103,6 +108,7 @@ export default ({
             objectUniversityEdit,
             createUniversities,
             updateUniversity,
+            onSettingItem,
             deleteItem,
             openEditItem
         }

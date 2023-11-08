@@ -102,6 +102,11 @@ const router = createRouter({
                     name: "alumnos",
                     path: "alumnos",
                     component: () => import("@/views/administrator/StudentsView.vue")
+                },
+                {
+                    name: "cursosadmin",
+                    path: "cursosadmin",
+                    component: () => import("@/views/administrator/CourseView.vue")
                 }
             ]
         },

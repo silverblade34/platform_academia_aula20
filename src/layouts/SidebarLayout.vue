@@ -85,12 +85,6 @@ export default {
                     icon: "fa-solid fa-map-location-dot mr-2"
                 },
                 {
-                    to: "/universidades",
-                    label: "Universidades",
-                    children: [],
-                    icon: "fa-solid fa-building-columns mr-2"
-                },              
-                {
                     to: "",
                     label: "Usuarios",
                     children: [
@@ -108,6 +102,25 @@ export default {
                         },
                     ],
                     icon: "fa-solid fa-users mr-2"
+                },
+                {
+                    to: "",
+                    label: "Asignación",
+                    children: [
+                        {
+                            to: "/universidades",
+                            label: "Universidades",
+                            children: [],
+                            icon: "fa-solid fa-building-columns mr-2"
+                        },
+                        {
+                            to: "/cursosadmin",
+                            label: "Cursos",
+                            children: [],
+                            icon: "fa-solid fa-book-open mr-2"
+                        }
+                    ],
+                    icon: "fa-solid fa-bezier-curve mr-2"
                 }
             ]
         }
