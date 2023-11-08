@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="desserts" class="elevation-1">
+  <v-data-table :headers="headers" :items="desserts" class="elevation-1 text-sm">
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon @click="editItem(item)" color="green">mdi-pencil</v-icon>
       <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
@@ -18,100 +18,60 @@ export default ({
     return {
       headers: [
         {
-          title: 'Dessert (100g serving)',
+          title: 'Pregunta',
           align: 'start',
           sortable: false,
-          key: 'name',
+          key: 'pregunta',
         },
-        { title: 'Calories', key: 'calories' },
-        { title: 'Fat (g)', key: 'fat' },
-        { title: 'Carbs (g)', key: 'carbs' },
-        { title: 'Protein (g)', key: 'protein' },
-        { title: 'Iron (%)', key: 'iron' },
+        { title: 'Opción 1', key: 'opcion1' },
+        { title: 'Opción 2', key: 'opcion2' },
+        { title: 'Opción 3', key: 'opcion3' },
+        { title: 'Opción 4', key: 'opcion4' },
+        { title: 'Solución', key: 'solucion' },
         { title: 'Actions', key: 'actions' }, // Columna adicional para acciones
       ],
       desserts: [
         {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
+          "pregunta": "¿Cuál es el área de un triángulo con una base de 6 metros y una altura de 8 metros?",
+          "opcion1": "24 metros cuadrados",
+          "opcion2": "36 metros cuadrados",
+          "opcion3": "48 metros cuadrados",
+          "opcion4": "64 metros cuadrados",
+          "solucion": "opcion2"
         },
         {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%',
+          "pregunta": "¿Cuál es la fórmula para calcular el área de un círculo?",
+          "opcion1": "A = πr^2",
+          "opcion2": "A = 2πr",
+          "opcion3": "A = 0.5πr",
+          "opcion4": "A = 3.14r",
+          "solucion": "opcion1"
         },
         {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%',
+          "pregunta": "¿Cuál de las siguientes figuras geométricas tiene 8 lados?",
+          "opcion1": "Hexágono",
+          "opcion2": "Octágono",
+          "opcion3": "Decágono",
+          "opcion4": "Pentágono",
+          "solucion": "opcion2"
         },
         {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%',
+          "pregunta": "¿Cuál es la suma de los ángulos internos de un triángulo?",
+          "opcion1": "90 grados",
+          "opcion2": "180 grados",
+          "opcion3": "270 grados",
+          "opcion4": "360 grados",
+          "solucion": "opcion2"
         },
         {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%',
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%',
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%',
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%',
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%',
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%',
-        },
-      ],
+          "pregunta": "¿Cuál es el volumen de un cubo con un lado de 5 centímetros?",
+          "opcion1": "100 cm³",
+          "opcion2": "125 cm³",
+          "opcion3": "150 cm³",
+          "opcion4": "175 cm³",
+          "solucion": "opcion1"
+        }
+      ]
     }
   },
   setup() {

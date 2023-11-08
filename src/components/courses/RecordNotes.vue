@@ -1,6 +1,6 @@
 <template>
     <v-data-table v-model:items-per-page="itemsPerPage" :headers="headers" :items="desserts" item-value="name"
-        class="elevation-0"></v-data-table>
+        class="elevation-0 text-sm"></v-data-table>
 </template>
 <script>
 /* eslint-disable */
@@ -13,100 +13,85 @@ export default ({
         return {
             itemsPerPage: 10,
             headers: [
-                {
-                    title: 'Dessert (100g serving)',
-                    align: 'start',
-                    sortable: false,
-                    key: 'name',
-                },
-                { title: 'Calories', align: 'end', key: 'calories' },
-                { title: 'Fat (g)', align: 'end', key: 'fat' },
-                { title: 'Carbs (g)', align: 'end', key: 'carbs' },
-                { title: 'Protein (g)', align: 'end', key: 'protein' },
-                { title: 'Iron (%)', align: 'end', key: 'iron' },
+                { title: 'Nota', align: 'start', key: 'nota' },
+                { title: 'Fecha', align: 'end', key: 'fecha' },
+                { title: 'P. correctas', align: 'end', key: 'pcorrectas' },
+                { title: 'P. incorrectas', align: 'end', key: 'pincorrectas' },
+                { title: 'T. preguntas', align: 'end', key: 'total' },
             ],
             desserts: [
                 {
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: '1',
+                    "nota": 85,
+                    "fecha": "2023-10-23",
+                    "pcorrectas": 17,
+                    "pincorrectas": 3,
+                    "total": 20
                 },
                 {
-                    name: 'Jelly bean',
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: '0',
+                    "nota": 92,
+                    "fecha": "2023-10-20",
+                    "pcorrectas": 23,
+                    "pincorrectas": 2,
+                    "total": 25
                 },
                 {
-                    name: 'KitKat',
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: '6',
+                    "nota": 78,
+                    "fecha": "2023-10-18",
+                    "pcorrectas": 15,
+                    "pincorrectas": 5,
+                    "total": 20
                 },
                 {
-                    name: 'Eclair',
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: '7',
+                    "nota": 88,
+                    "fecha": "2023-10-16",
+                    "pcorrectas": 22,
+                    "pincorrectas": 2,
+                    "total": 24
                 },
                 {
-                    name: 'Gingerbread',
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: '16',
+                    "nota": 95,
+                    "fecha": "2023-10-14",
+                    "pcorrectas": 19,
+                    "pincorrectas": 1,
+                    "total": 20
                 },
                 {
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: '1',
+                    "nota": 70,
+                    "fecha": "2023-10-12",
+                    "pcorrectas": 14,
+                    "pincorrectas": 6,
+                    "total": 20
                 },
                 {
-                    name: 'Lollipop',
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: '2',
+                    "nota": 80,
+                    "fecha": "2023-10-10",
+                    "pcorrectas": 16,
+                    "pincorrectas": 4,
+                    "total": 20
                 },
                 {
-                    name: 'Cupcake',
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: '8',
+                    "nota": 90,
+                    "fecha": "2023-10-08",
+                    "pcorrectas": 18,
+                    "pincorrectas": 2,
+                    "total": 20
                 },
                 {
-                    name: 'Honeycomb',
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: '45',
+                    "nota": 75,
+                    "fecha": "2023-10-06",
+                    "pcorrectas": 15,
+                    "pincorrectas": 5,
+                    "total": 20
                 },
                 {
-                    name: 'Donut',
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: '22',
-                },
-            ],
+                    "nota": 82,
+                    "fecha": "2023-10-04",
+                    "pcorrectas": 18,
+                    "pincorrectas": 2,
+                    "total": 20
+                }
+            ]
+
         }
     },
 })
