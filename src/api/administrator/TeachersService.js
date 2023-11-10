@@ -2,11 +2,11 @@ import axios from 'axios';
 
 const baseURL = process.env.VUE_APP_BASE_URL;
 
-export function finAllTeachersApi() {
+export function findAllTeachersApi() {
     return axios.get(`${baseURL}/teacher`)
 }
 
-export function finOneTeacherApi(id) {
+export function findOneTeacherApi(id) {
     return axios.get(`${baseURL}/teacher/${id}`)
 }
 

@@ -13,7 +13,7 @@
 import ModalCreate from "@/components/teachers/ModalCreate.vue";
 import ModalUpdate from "@/components/teachers/ModalUpdate.vue";
 import {
-    finAllTeachersApi, createTeacherApi, finOneTeacherApi,
+    findAllTeachersApi, createTeacherApi, findOneTeacherApi,
     updateTeacherApi
 } from '@/api/administrator/TeachersService';
 import { createUserApi, updateUserApi, deleteUserApi } from '@/api/administrator/UserService';
@@ -33,7 +33,7 @@ export default ({
         const objectTeacherEdit = ref({});
 
         const loadData = async () => {
-            await finAllTeachersApi()
+            await findAllTeachersApi()
                 .then(response => {
                     listTeachers.value = response.data.data;
                 })
@@ -82,7 +82,7 @@ export default ({
         }
 
         const openEditItem = (data) => {
-            finOneTeacherApi(data.id)
+            findOneTeacherApi(data.id)
                 .then(response => {
                     objectTeacherEdit.value = response.data.data;
                     openModalEdit.value = true;
