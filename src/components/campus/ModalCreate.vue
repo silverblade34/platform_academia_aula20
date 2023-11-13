@@ -6,12 +6,12 @@
         <v-dialog v-model="dialog" width="500">
             <v-card>
                 <v-toolbar color="blue">
-                    <span class="px-4 w-full text-center">Crear nueva sede a la academia</span>
+                    <span class="px-4 w-full text-center">CREAR SEDE A LA ACADEMIA</span>
                 </v-toolbar>
                 <v-card-text>
                     <v-col cols="12">
-                        <v-text-field label="Nombre*" type="text" v-model="name" color="blue" required></v-text-field>
-                        <v-text-field label="Dirección*" type="text" v-model="address" color="blue" required></v-text-field>
+                        <v-text-field label="Nombre*" type="text" v-model="name" color="blue" required variant="outlined" prepend-inner-icon="mdi-text-box"></v-text-field>
+                        <v-text-field label="Dirección*" type="text" v-model="address" color="blue" variant="outlined" required prepend-inner-icon="mdi-sign-direction"></v-text-field>
                     </v-col>
                 </v-card-text>
                 <v-card-actions>

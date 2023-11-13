@@ -1,10 +1,11 @@
 <template>
     <div class="flex justify-between">
         <h1 class="font-bold text-xl text-gray-500 title-views">Universidades</h1>
-        <ModalCreate @create-university="createUniversities" />
+        <ModalCreate @create-university="createUniversities" :listCourse="listCourses" />
     </div>
     <div class="py-5">
-        <TableUniversities :desserts="listUniversities" @delete-item="deleteItem" @edit-item="openEditItem" @setting-item="onSettingItem"/>
+        <TableUniversities :desserts="listUniversities" @delete-item="deleteItem" @edit-item="openEditItem"
+            @setting-item="onSettingItem" />
     </div>
     <ModalUpdate :openModal="openModalEdit" :objectUniversity="objectUniversityEdit" @close-modal="openModalEdit = false"
         @update-university="updateUniversity" />
@@ -17,6 +18,7 @@ import {
     finAllUniversitiesApi, createUniversitiesApi, deleteUniversitiesApi,
     finOneUniversitiesApi, updateUniversitiesApi
 } from '@/api/administrator/UniversitiesService';
+import { findAllCourseApi } from '@/api/administrator/CourseService';
 import { onMounted, ref } from "vue";
 import TableUniversities from "@/components/universities/TableUniversities.vue";
 import { basicAlert, confirmBasic } from "@/helpers/SweetAlert";
@@ -30,14 +32,17 @@ export default ({
     },
     setup() {
         const listUniversities = ref([]);
+        const listCourses = ref([]);
         const openModalEdit = ref(false);
         const objectUniversityEdit = ref({});
 
         const loadData = async () => {
-            await finAllUniversitiesApi()
-                .then(response => {
-                    listUniversities.value = response.data.data;
-                })
+            const [universitiesResponse, coursesResponse] = await Promise.all([
+                finAllUniversitiesApi(),
+                findAllCourseApi()
+            ])
+            listUniversities.value = universitiesResponse.data.data;
+            listCourses.value = coursesResponse.data.data
         }
 
         onMounted(async () => {
@@ -52,7 +57,8 @@ export default ({
                         loadData();
                     })
                     .catch(error => {
-                        basicAlert(() => { }, 'error', 'Hubo un error al crear la universidad', error.response.data.message)
+                        console.log(error)
+                        basicAlert(() => { }, 'error', 'Error', error.response.data.message)
                     })
             } else {
                 basicAlert(() => { }, 'warning', 'Campos vacios', "Revise los campos obligatorios")
@@ -84,7 +90,8 @@ export default ({
         }
 
         const onSettingItem = (data) => {
-
+            console.log("---------MOSTRAR CURSOS----------")
+            console.log(data.universityCourse)
         }
 
         const updateUniversity = (data) => {
@@ -103,6 +110,7 @@ export default ({
         }
 
         return {
+            listCourses,
             listUniversities,
             openModalEdit,
             objectUniversityEdit,

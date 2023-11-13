@@ -7,9 +7,15 @@
                 </v-toolbar>
                 <v-card-text>
                     <v-col cols="12">
-                        <v-expansion-panels variant="accordion">
-                            <v-expansion-panel v-for="item in dataSyllabus" :key="item.name" :title="item.name"
-                                :text="item.description"></v-expansion-panel>
+                        <v-expansion-panels>
+                            <v-expansion-panel v-for="item in dataSyllabus" :key="item.name">
+                                <v-expansion-panel-title>{{ item.name }}</v-expansion-panel-title>
+                                <v-expansion-panel-text>
+                                    <div class="w-full text-xs">
+                                        {{ item.description }}
+                                    </div>
+                                </v-expansion-panel-text>
+                            </v-expansion-panel>
                         </v-expansion-panels>
                     </v-col>
                 </v-card-text>
@@ -37,8 +43,6 @@ export default {
 
         watch(() => props.openModal, (newVal) => {
             dialog.value = newVal;
-            console.log("------DENTRO DEL MODAL------")
-            console.log(props.data)
             dataSyllabus.value = props.data;
         });
 

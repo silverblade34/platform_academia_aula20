@@ -55,7 +55,7 @@ export default ({
         }
 
         const settingItem = (item) => {
-            emit('setting-item', { id: item.raw.id })
+            emit('setting-item', item.raw)
         }
         return {
             deleteItem,

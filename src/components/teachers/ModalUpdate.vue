@@ -3,23 +3,26 @@
         <v-dialog v-model="dialog" width="500" @click:outside="closeModal">
             <v-card>
                 <v-toolbar color="blue">
-                    <span class="px-4 w-full text-center">Editar profesor</span>
+                    <span class="px-4 w-full text-center">EDITAR PROFESOR</span>
                 </v-toolbar>
                 <v-card-text>
                     <v-col cols="12">
                         <v-text-field label="Nombre" placeholder="Ingrese el nombre" :rules="[rules.required]"
-                            v-model="name"></v-text-field>
-                        <v-text-field label="Apellidos" placeholder="Ingrese apellidos" :rules="[rules.required]"
-                            v-model="lastname"></v-text-field>
-                        <v-text-field label="DNI" placeholder="Ingrese el DNI" :rules="[rules.required]" v-model="codigo"
-                            disabled></v-text-field>
-                        <v-text-field label="Correo" placeholder="Ingrese su correo" v-model="email"></v-text-field>
-                        <v-text-field label="Usuario" placeholder="Ingrese un usuario" :rules="[rules.required]"
-                            v-model="username"></v-text-field>
-                        <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1"
-                            label="Contraseña" hint="Al menos 8 carácteres" counter
-                            @click:append="show1 = !show1"></v-text-field>
+                            v-model="name" color="blue" variant="outlined" prepend-inner-icon="mdi-text-box"></v-text-field>
+                        <v-text-field color="blue" label="Apellidos" placeholder="Ingrese apellidos"
+                            :rules="[rules.required]" v-model="lastname" variant="outlined"
+                            prepend-inner-icon="mdi-text-account"></v-text-field>
+                        <v-text-field color="blue" label="DNI" placeholder="Ingrese el DNI" :rules="[rules.required]"
+                            v-model="codigo" class="w-full" variant="outlined"
+                            prepend-inner-icon="mdi-barcode"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-email" label="Correo"
+                            placeholder="Ingrese su correo" v-model="email"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-account" label="Usuario"
+                            placeholder="Ingrese un usuario" :rules="[rules.required]" v-model="username"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-lock" v-model="password"
+                            :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
+                            :type="show1 ? 'text' : 'password'" name="input-10-1" label="Contraseña"
+                            hint="Al menos 8 carácteres" counter @click:append-inner="show1 = !show1"></v-text-field>
                     </v-col>
                 </v-card-text>
                 <v-card-actions>

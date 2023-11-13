@@ -6,23 +6,29 @@
         <v-dialog v-model="dialog" width="500">
             <v-card>
                 <v-toolbar color="blue">
-                    <span class="px-4 w-full text-center">Crear nuevo profesor</span>
+                    <span class="px-4 w-full text-center">CREAR PROFESOR</span>
                 </v-toolbar>
                 <v-card-text>
                     <v-col cols="12">
                         <v-text-field label="Nombre" placeholder="Ingrese el nombre" :rules="[rules.required]"
-                            v-model="name"></v-text-field>
-                        <v-text-field label="Apellidos" placeholder="Ingrese apellidos" :rules="[rules.required]"
-                            v-model="lastname"></v-text-field>
-                        <v-text-field label="DNI" placeholder="Ingrese el DNI" :rules="[rules.required]"
-                            v-model="codigo"></v-text-field>
-                        <v-text-field label="Correo" placeholder="Ingrese su correo" v-model="email"></v-text-field>
-                        <v-text-field label="Usuario" placeholder="Ingrese un usuario" :rules="[rules.required]"
-                            v-model="username"></v-text-field>
-                        <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1"
-                            label="Contraseña" hint="Al menos 8 carácteres" counter
-                            @click:append="show1 = !show1"></v-text-field>
+                            v-model="name" color="blue" variant="outlined" prepend-inner-icon="mdi-text-box"></v-text-field>
+                        <v-text-field color="blue" label="Apellidos" placeholder="Ingrese apellidos"
+                            :rules="[rules.required]" v-model="lastname" variant="outlined"
+                            prepend-inner-icon="mdi-text-account"></v-text-field>
+                        <v-text-field color="blue" label="DNI" placeholder="Ingrese el DNI" :rules="[rules.required]"
+                            v-model="codigo" class="w-full" variant="outlined"
+                            prepend-inner-icon="mdi-barcode"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-email" label="Correo"
+                            placeholder="Ingrese su correo" v-model="email"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-account" label="Usuario"
+                            placeholder="Ingrese un usuario" :rules="[rules.required]" v-model="username"
+                            @input="checkUsernameAvailability" hide-details></v-text-field>
+                        <span :class="statusValidateUser ? 'text-green' : 'text-red'" class="text-xs pl-3">{{
+                            messageValidateUser }}</span>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-lock" v-model="password"
+                            :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
+                            :type="show1 ? 'text' : 'password'" name="input-10-1" label="Contraseña"
+                            hint="Al menos 8 carácteres" counter @click:append-inner="show1 = !show1"></v-text-field>
                     </v-col>
                 </v-card-text>
                 <v-card-actions>
@@ -39,6 +45,7 @@
     </div>
 </template>
 <script>
+import { checkUsernameAvailabilityApi } from '@/api/administrator/UserService';
 import { ref } from 'vue'
 export default {
     emits: ['create-teacher'],
@@ -52,6 +59,9 @@ export default {
         const email = ref('');
         const username = ref('');
         const password = ref('');
+        const statusValidateUser = ref(false);
+        const messageValidateUser = ref('');
+
         const rules = {
             required: value => !!value || 'Obligatorio.',
             min: v => v.length >= 8 || 'Min 8 caracteres',
@@ -69,6 +79,17 @@ export default {
             name.value = lastname.value = codigo.value = email.value = username.value = password.value = "";
             dialog.value = false
         }
+
+        const checkUsernameAvailability = () => {
+            if (username.value != "") {
+                checkUsernameAvailabilityApi(username.value)
+                    .then(response => {
+                        messageValidateUser.value = response.data.message;
+                        statusValidateUser.value = response.data.status;
+                    })
+            }
+        }
+
         return {
             dialog,
             name,
@@ -80,6 +101,9 @@ export default {
             rules,
             show1,
             show2,
+            statusValidateUser,
+            messageValidateUser,
+            checkUsernameAvailability,
             createTeacher
         }
     }

@@ -6,35 +6,41 @@
         <v-dialog v-model="dialog" width="500">
             <v-card>
                 <v-toolbar color="blue">
-                    <span class="px-4 w-full text-center">Crear nuevo alumno</span>
+                    <span class="px-4 w-full text-center">CREAR ALUMNO</span>
                 </v-toolbar>
                 <v-card-text>
                     <v-col cols="12">
-                        <v-text-field label="Nombre" placeholder="Ingrese el nombre" :rules="[rules.required]"
-                            v-model="name"></v-text-field>
-                        <v-text-field label="Apellidos" placeholder="Ingrese apellidos" :rules="[rules.required]"
-                            v-model="lastname"></v-text-field>
+                        <v-text-field color="blue" label="Nombre" placeholder="Ingrese el nombre" :rules="[rules.required]"
+                            v-model="name" variant="outlined" prepend-inner-icon="mdi-text-box"></v-text-field>
+                        <v-text-field color="blue" label="Apellidos" placeholder="Ingrese apellidos"
+                            :rules="[rules.required]" v-model="lastname" variant="outlined"
+                            prepend-inner-icon="mdi-text-account"></v-text-field>
                     </v-col>
                     <v-col cols="12" class="flex gap-4">
-                        <v-text-field label="DNI" placeholder="Ingrese el DNI" :rules="[rules.required]" v-model="codigo"
-                            class="w-full"></v-text-field>
-                        <v-select label="Genero" :items="['MASCULINO', 'FEMENINO']" class="w-full"
-                            v-model="genero"></v-select>
+                        <v-text-field color="blue" label="DNI" placeholder="Ingrese el DNI" :rules="[rules.required]"
+                            v-model="codigo" class="w-full" variant="outlined"
+                            prepend-inner-icon="mdi-barcode"></v-text-field>
+                        <v-select color="blue" label="Genero" :items="['MASCULINO', 'FEMENINO']" class="w-full"
+                            v-model="genero" variant="outlined" prepend-inner-icon="mdi-gender-female"></v-select>
                     </v-col>
                     <v-col cols="12" class="flex gap-4">
-                        <v-select label="Sede" :items="listSelectCampus" v-model="campus" class="w-full"></v-select>
-                        <v-select label="Universidad" :items="listSelectUniversities" class="w-full" v-model="university"></v-select>
+                        <v-select color="blue" variant="outlined" prepend-inner-icon="mdi-sign-direction" label="Sede"
+                            :items="listSelectCampus" v-model="campus" class="w-full"></v-select>
+                        <v-select color="blue" variant="outlined" prepend-inner-icon="mdi-bank" label="Universidad"
+                            :items="listSelectUniversities" class="w-full" v-model="university"></v-select>
                     </v-col>
                     <v-col cols="12">
-                        <v-text-field label="Correo" placeholder="Ingrese su correo" v-model="email"></v-text-field>
-                        <v-text-field label="Usuario" placeholder="Ingrese un usuario" :rules="[rules.required]"
-                            v-model="username" @input="checkUsernameAvailability" hide-details></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-email" label="Correo"
+                            placeholder="Ingrese su correo" v-model="email"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-account" label="Usuario"
+                            placeholder="Ingrese un usuario" :rules="[rules.required]" v-model="username"
+                            @input="checkUsernameAvailability" hide-details></v-text-field>
                         <span :class="statusValidateUser ? 'text-green' : 'text-red'" class="text-xs pl-3">{{
                             messageValidateUser }}</span>
-                        <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1"
-                            label="Contraseña" hint="Al menos 8 carácteres" counter
-                            @click:append="show1 = !show1"></v-text-field>
+                        <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-lock" v-model="password"
+                            :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
+                            :type="show1 ? 'text' : 'password'" name="input-10-1" label="Contraseña"
+                            hint="Al menos 8 carácteres" counter @click:append-inner="show1 = !show1"></v-text-field>
                     </v-col>
                 </v-card-text>
                 <v-card-actions>

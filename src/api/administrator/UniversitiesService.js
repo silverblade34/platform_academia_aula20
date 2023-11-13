@@ -11,6 +11,8 @@ export function finOneUniversitiesApi(id) {
 }
 
 export function createUniversitiesApi(data) {
+    console.log("------DATA CREATE UNIVERSITY---------")
+    console.log(data)
     return axios.post(`${baseURL}/university/create`, data)
 }
 
