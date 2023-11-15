@@ -3,20 +3,16 @@
         <v-dialog v-model="dialog" width="580" @click:outside="closeModal">
             <v-card>
                 <v-toolbar color="blue">
-                    <span class="px-4 w-full text-center">Lista de temarios</span>
+                    <span class="px-4 w-full text-center">Lista de especialidades</span>
                 </v-toolbar>
                 <v-card-text>
                     <v-col cols="12">
-                        <v-expansion-panels>
-                            <v-expansion-panel v-for="item in dataSyllabus" :key="item.name">
-                                <v-expansion-panel-title>{{ item.name }}</v-expansion-panel-title>
-                                <v-expansion-panel-text>
-                                    <div class="w-full text-xs">
-                                        {{ item.description }}
-                                    </div>
-                                </v-expansion-panel-text>
-                            </v-expansion-panel>
-                        </v-expansion-panels>
+                        <v-alert v-for="item in dataCourses" :key="item.id" border="start" variant="tonal"
+                            color="cyan-darken-2" class="text-sm my-1">
+                            <div class="w-full grid grid-cols-5">
+                                <span class="col-span-4">{{ item.name }}</span>
+                            </div>
+                        </v-alert>
                     </v-col>
                 </v-card-text>
                 <v-card-actions>
@@ -39,11 +35,11 @@ export default {
     emits: ['update-item', 'close-modal'],
     setup(props, { emit }) {
         const dialog = ref(false);
-        const dataSyllabus = ref([]);
+        const dataCourses = ref([]);
 
         watch(() => props.openModal, (newVal) => {
             dialog.value = newVal;
-            dataSyllabus.value = props.data;
+            dataCourses.value = props.data;
         });
 
         const closeModal = () => {
@@ -51,7 +47,7 @@ export default {
         }
         return {
             dialog,
-            dataSyllabus,
+            dataCourses,
             closeModal
         }
     }

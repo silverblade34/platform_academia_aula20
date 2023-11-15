@@ -7,11 +7,13 @@
         <TableUniversities :desserts="listUniversities" @delete-item="deleteItem" @edit-item="openEditItem"
             @setting-item="onSettingItem" />
     </div>
-    <ModalUpdate :openModal="openModalEdit" :objectUniversity="objectUniversityEdit" @close-modal="openModalEdit = false"
+    <ModalUpdate :openModal="openModalEdit" :objectUniversity="universityEdit" @close-modal="openModalEdit = false"
         @update-university="updateUniversity" />
+    <ModalCourses :data="coursesUniversity" :openModal="openModalCourses" @close-modal="openModalCourses = false" />
 </template>
 <script>
 /* eslint-disable */
+import ModalCourses from "@/components/universities/ModalCourses.vue";
 import ModalCreate from "@/components/universities/ModalCreate.vue";
 import ModalUpdate from "@/components/universities/ModalUpdate.vue";
 import {
@@ -26,6 +28,7 @@ import { basicAlert, confirmBasic } from "@/helpers/SweetAlert";
 
 export default ({
     components: {
+        ModalCourses,
         ModalCreate,
         ModalUpdate,
         TableUniversities
@@ -34,7 +37,9 @@ export default ({
         const listUniversities = ref([]);
         const listCourses = ref([]);
         const openModalEdit = ref(false);
-        const objectUniversityEdit = ref({});
+        const universityEdit = ref({});
+        const coursesUniversity = ref([]);
+        const openModalCourses = ref(false);
 
         const loadData = async () => {
             const [universitiesResponse, coursesResponse] = await Promise.all([
@@ -84,19 +89,19 @@ export default ({
         const openEditItem = (data) => {
             finOneUniversitiesApi(data.id)
                 .then(response => {
-                    objectUniversityEdit.value = response.data.data;
+                    universityEdit.value = response.data.data;
                     openModalEdit.value = true;
                 })
         }
 
         const onSettingItem = (data) => {
-            console.log("---------MOSTRAR CURSOS----------")
-            console.log(data.universityCourse)
+            coursesUniversity.value = data.universityCourse;
+            openModalCourses.value = true
         }
 
         const updateUniversity = (data) => {
             if (data.name != "" && data.initials != "") {
-                updateUniversitiesApi(objectUniversityEdit.value.id, data)
+                updateUniversitiesApi(universityEdit.value.id, data)
                     .then(response => {
                         basicAlert(() => { }, 'success', 'Logrado', response.data.message)
                         loadData();
@@ -113,7 +118,9 @@ export default ({
             listCourses,
             listUniversities,
             openModalEdit,
-            objectUniversityEdit,
+            openModalCourses,
+            universityEdit,
+            coursesUniversity,
             createUniversities,
             updateUniversity,
             onSettingItem,

@@ -11,12 +11,7 @@ export function findOneTeacherApi(id) {
 }
 
 export function createTeacherApi(data) {
-    return axios.post(`${baseURL}/teacher/create`, {
-        "name": data.name,
-        "lastName": data.lastname,
-        "codigo": data.codigo,
-        "email": data.email,
-    })
+    return axios.post(`${baseURL}/teacher/create`, data)
 }
 
 export function updateTeacherApi(id, data) {
@@ -25,4 +20,8 @@ export function updateTeacherApi(id, data) {
         "lastName": data.lastname,
         "email": data.email,
     })
+}
+
+export function deleteTeacherApi(id) {
+    return axios.delete(`${baseURL}/teacher/${id}`)
 }

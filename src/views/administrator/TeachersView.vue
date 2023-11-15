@@ -1,42 +1,53 @@
 <template>
     <div class="flex justify-between">
         <h1 class="font-bold text-xl text-gray-500 title-views">Profesores</h1>
-        <ModalCreate @create-teacher="createTeacher" />
+        <ModalCreate @create-teacher="createTeacher" :listCourse="listCourses" />
     </div>
     <div class="py-5">
-        <TableTeachers :desserts="listTeachers" @delete-item="deleteItem" @edit-item="openEditItem" />
+        <TableTeachers :desserts="listTeachers" @delete-item="onDeleteItem" @edit-item="onEditItem"
+            @courses-item="onCoursesItem" />
     </div>
     <ModalUpdate :openModal="openModalEdit" :objectTeacher="objectTeacherEdit" @close-modal="openModalEdit = false"
         @update-teacher="updateTeacher" />
+    <ModalSpecialties :data="coursesTeacher" :openModal="openModalCourses" @close-modal="openModalCourses = false" />
 </template>
 <script>
+/* eslint-disable */
 import ModalCreate from "@/components/teachers/ModalCreate.vue";
 import ModalUpdate from "@/components/teachers/ModalUpdate.vue";
+import ModalSpecialties from "@/components/teachers/ModalSpecialties.vue";
 import {
     findAllTeachersApi, createTeacherApi, findOneTeacherApi,
-    updateTeacherApi
+    updateTeacherApi, deleteTeacherApi
 } from '@/api/administrator/TeachersService';
-import { createUserApi, updateUserApi, deleteUserApi } from '@/api/administrator/UserService';
+import { findAllCourseApi } from '@/api/administrator/CourseService';
+import { updateUserApi } from '@/api/administrator/UserService';
 import { onMounted, ref } from "vue";
 import TableTeachers from "../../components/teachers/TableTeachers.vue";
 import { basicAlert, confirmBasic } from "@/helpers/SweetAlert";
 
 export default ({
     components: {
+        ModalSpecialties,
         ModalCreate,
         ModalUpdate,
         TableTeachers
     },
     setup() {
         const listTeachers = ref([]);
+        const listCourses = ref([]);
         const openModalEdit = ref(false);
+        const openModalCourses = ref(false);
         const objectTeacherEdit = ref({});
+        const coursesTeacher = ref([]);
 
         const loadData = async () => {
-            await findAllTeachersApi()
-                .then(response => {
-                    listTeachers.value = response.data.data;
-                })
+            const [teacherResponse, coursesResponse] = await Promise.all([
+                findAllTeachersApi(),
+                findAllCourseApi()
+            ])
+            listTeachers.value = teacherResponse.data.data;
+            listCourses.value = coursesResponse.data.data;
         }
 
         onMounted(async () => {
@@ -44,20 +55,15 @@ export default ({
         })
 
         const createTeacher = (data) => {
-            if (data.name != "" && data.lastname != "" && data.codigo != "" && data.email != "" && data.username != "" && data.password != "") {
-                data.rol = "PROFESOR"
-                createUserApi(data)
-                    .then(() => {
-                        createTeacherApi(data)
-                            .then(response => {
-                                basicAlert(() => {
-                                    loadData();
-                                }, 'success', 'Profesor creado', response.data.message)
-                            })
+            if (data.name != "" && data.lastName != "" && data.codigo != "" && data.email != "" && data.username != "" && data.password != "" && data.courses.length != 0) {
+                createTeacherApi(data)
+                    .then(response => {
+                        basicAlert(() => {
+                            loadData();
+                        }, 'success', 'Profesor creado', response.data.message)
                     })
                     .catch(error => {
                         console.log(error)
-                        // Mostrar Sweet Alert de error al consumir el API
                         basicAlert(() => { }, 'error', 'Error', error.response.data.message)
                     })
             } else {
@@ -65,9 +71,9 @@ export default ({
             }
         }
 
-        const deleteItem = (data) => {
+        const onDeleteItem = (data) => {
             confirmBasic(() => {
-                deleteUserApi(data.id)
+                deleteTeacherApi(data.id)
                     .then(response => {
                         // Mostrar Sweet Alert eliminación exitosa
                         basicAlert(() => {
@@ -81,12 +87,21 @@ export default ({
             }, '¿Estás seguro de eliminar a este profesor?', 'Eliminar');
         }
 
-        const openEditItem = (data) => {
+        const onEditItem = (data) => {
             findOneTeacherApi(data.id)
                 .then(response => {
                     objectTeacherEdit.value = response.data.data;
                     openModalEdit.value = true;
                 })
+        }
+
+        const onCoursesItem = (data) => {
+            coursesTeacher.value = data.data.teacherCourses.map(courseid => {
+                return {
+                    name: listCourses.value.find(course => course.id == courseid.id).name
+                }
+            })
+            openModalCourses.value = true;
         }
 
         const updateTeacher = (data) => {
@@ -111,11 +126,15 @@ export default ({
         }
 
         return {
+            coursesTeacher,
+            listCourses,
             listTeachers,
             objectTeacherEdit,
             openModalEdit,
-            deleteItem,
-            openEditItem,
+            openModalCourses,
+            onCoursesItem,
+            onDeleteItem,
+            onEditItem,
             createTeacher,
             updateTeacher
         }

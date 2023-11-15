@@ -4,7 +4,7 @@
         <ModalCreate @create-course="onCreateCourse" />
     </div>
     <div class="py-5">
-        <TableCourse :desserts="listCourse" @syllabus-item="onSyllabusItem" />
+        <TableCourse :desserts="listCourse" @syllabus-item="onSyllabusItem" @delete-item="onDeleteItem" />
     </div>
     <ModalSyllabus :data="dataSyllabus" :openModal="openModalSyllabus" @close-modal="openModalSyllabus = false" />
 </template>
@@ -12,9 +12,10 @@
 import TableCourse from '@/components/courses/administrator/TableCourse.vue';
 import ModalSyllabus from '@/components/courses/administrator/ModalSyllabus.vue';
 import ModalCreate from '@/components/courses/administrator/ModalCreate.vue';
-import { findAllCourseApi, createCourseApi } from '@/api/administrator/CourseService';
+import { findAllCourseApi, createCourseApi, deleteCourseApi } from '@/api/administrator/CourseService';
 import { onMounted, ref } from 'vue';
-import { basicAlert } from "@/helpers/SweetAlert";
+import { basicAlert, confirmBasic } from "@/helpers/SweetAlert";
+
 export default ({
     components: {
         TableCourse,
@@ -45,6 +46,22 @@ export default ({
             openModalSyllabus.value = true
         }
 
+        const onDeleteItem = (data) => {
+            confirmBasic(() => {
+                deleteCourseApi(data.id)
+                    .then(response => {
+                        // Mostrar Sweet Alert eliminación exitosa
+                        basicAlert(() => {
+                            reloadData();
+                        }, 'success', 'Curso eliminado', response.data.message)
+                    })
+                    .catch(error => {
+                        // Mostrar Sweet Alert de error al consumir el API
+                        basicAlert(() => { }, 'error', 'Error', error.response.data.message)
+                    });
+            }, '¿Estás seguro de eliminar este curso?', 'Eliminar');
+        }
+
         const onCreateCourse = (data) => {
             createCourseApi(data)
                 .then(response => {
@@ -52,6 +69,7 @@ export default ({
                     reloadData()
                 }).catch(error => {
                     console.log(error.response.message)
+                    basicAlert(() => { }, 'error', 'Ha ocurrido un error', error.response.data.message)
                 })
         }
 
@@ -59,6 +77,7 @@ export default ({
             listCourse,
             dataSyllabus,
             openModalSyllabus,
+            onDeleteItem,
             onCreateCourse,
             onSyllabusItem
         }

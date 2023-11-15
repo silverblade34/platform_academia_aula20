@@ -1,5 +1,10 @@
 <template>
     <v-data-table :headers="headers" :items="desserts" class="elevation-1 text-sm">
+        <template v-slot:[`item.specialties`]="{ item }">
+            <v-btn size="small" class="text-none" color="teal-lighten-2" @click="coursesItem(item)">
+                Especialidades
+            </v-btn>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
             <span>
                 <v-icon @click="editItem(item)" color="green" class="mx-2">mdi-pencil</v-icon>
@@ -21,7 +26,7 @@ export default ({
     components: {
         VDataTable,
     },
-    emits: ['delete-item', 'edit-item'],
+    emits: ['delete-item', 'edit-item', 'courses-item'],
     data() {
         return {
             headers: [
@@ -35,6 +40,7 @@ export default ({
                 { title: 'DNI', align: 'start', key: 'codigo' },
                 { title: 'Correo', align: 'start', key: 'email' },
                 { title: 'Usuario', key: 'username' },
+                { title: 'Asignación', key: 'specialties' },
                 { title: 'Fecha de creación', key: 'createdAt' },
                 { title: 'Acciones', key: 'actions' },
             ]
@@ -43,15 +49,20 @@ export default ({
     setup(_, { emit }) {
 
         const deleteItem = (item) => {
-            emit('delete-item', {id: item.raw.idUser})
+            emit('delete-item', {id: item.raw.id})
         }
 
         const editItem = (item) => {
             emit('edit-item', {id: item.raw.id})
         }
 
+        const coursesItem = (item) => {
+            emit('courses-item', {data: item.raw})
+        }
+
         return {
             deleteItem,
+            coursesItem,
             editItem
         }
     }

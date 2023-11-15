@@ -20,9 +20,9 @@
                         <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-account" label="Usuario"
                             placeholder="Ingrese un usuario" :rules="[rules.required]" v-model="username"></v-text-field>
                         <v-text-field color="blue" variant="outlined" prepend-inner-icon="mdi-lock" v-model="password"
-                            :append-inner-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
-                            :type="show1 ? 'text' : 'password'" name="input-10-1" label="Contraseña"
-                            hint="Al menos 8 carácteres" counter @click:append-inner="show1 = !show1"></v-text-field>
+                            :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
+                            :type="showPassword ? 'text' : 'password'" name="input-10-1" label="Contraseña"
+                            hint="Al menos 8 carácteres" counter @click:append-inner="showPassword = !showPassword"></v-text-field>
                     </v-col>
                 </v-card-text>
                 <v-card-actions>
@@ -48,8 +48,7 @@ export default {
     emits: ['update-teacher'],
     setup(props, { emit }) {
         const dialog = ref(false);
-        const show1 = ref(false);
-        const show2 = ref(true);
+        const showPassword = ref(false);
         const name = ref('');
         const lastname = ref('');
         const codigo = ref('');
@@ -80,12 +79,13 @@ export default {
                 username: username.value,
                 password: password.value,
             })
-            name.value = lastname.value = codigo.value = email.value = username.value = password.value = "";
             closeModal();
         }
 
         const closeModal = () => {
             emit('close-modal')
+            name.value = lastname.value = codigo.value = email.value = username.value = password.value = "";
+            showPassword.value = false 
         }
         return {
             dialog,
@@ -96,8 +96,7 @@ export default {
             username,
             password,
             rules,
-            show1,
-            show2,
+            showPassword,
             closeModal,
             updateTeacher
         }

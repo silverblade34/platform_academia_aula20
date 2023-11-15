@@ -16,13 +16,13 @@
                             <span class="text-center text-sm w-full py-3 text-blue rounded-md bg-blue-lighten-5">TEMARIOS</span>
                         </div>
                         <div class="grid grid-cols-5 gap-2">
-                            <div class="col-span-2 text-sm">
+                            <div class="col-span-2 text-xs">
                                 <v-text-field label="Nombre del tema" color="blue" v-model="namesubject" variant="outlined"
-                                    prepend-inner-icon="mdi-format-text" density="compact"></v-text-field>
+                                    prepend-inner-icon="mdi-format-text" density="compact" class="text-xs"></v-text-field>
                                 <v-textarea label="Descripción del tema" color="blue" v-model="descriptionsubject"
                                     variant="outlined" prepend-inner-icon="mdi-text-box-edit"
                                     placeholder="Separa los items por un '-', ejemplo: -Item 1 - Item 2" rows="8"
-                                    auto-grow></v-textarea>
+                                    auto-grow class="text-xs"></v-textarea>
                                 <div class="flex justify-center gap-1">
                                     <v-btn color="cyan-lighten-3" class="w-full text-white" @click="createSubject" variant="tonal" append-icon="mdi-plus">
                                         Agregar temario

@@ -37,7 +37,7 @@ export default ({
                     key: 'name',
                 },
                 { title: 'Sigla', align: 'start', key: 'initials' },
-                { title: 'Fecha de creación', align: 'start', key: 'createAt' },
+                { title: 'Fecha de creación', align: 'start', key: 'createdAt' },
                 { title: 'Cant. Estudiantes', align: 'start', key: 'studentCount' },
                 { title: 'Configuración', key: 'settings' },
                 { title: 'Acciones', key: 'actions' },

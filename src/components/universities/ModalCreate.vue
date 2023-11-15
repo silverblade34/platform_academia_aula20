@@ -15,7 +15,7 @@
                         <v-text-field label="Sigla" type="text" v-model="initials" color="blue" required variant="outlined"
                             prepend-inner-icon="mdi-signature-text"></v-text-field>
                         <v-autocomplete :items="listCourse.map(course => course.name)" v-model="addCourse"
-                            label="Agregar cursos" variant="outlined" prepend-inner-icon="mdi-plus-box">
+                            label="Agregar cursos" variant="outlined" prepend-inner-icon="mdi-plus-box" color="blue">
                         </v-autocomplete>
                         <v-table class="text-sm">
                             <thead>
@@ -80,7 +80,7 @@ export default {
         const initials = ref('');
         const listedCourse = ref([]);
         const addCourse = ref('');
-        const listCourses = ref([]);
+        const listCoursesData = ref([]);
 
         const createUniversity = () => {
             emit('create-university', {
@@ -96,14 +96,14 @@ export default {
 
         watch(() => dialog.value, (newVal) => {
             if (newVal) {
-                listCourses.value = props.listCourse
+                listCoursesData.value = props.listCourse
             }
         })
 
         watch(() => addCourse.value, (newVal) => {
             if (newVal) {
                 const course = {
-                    idcourse: listCourses.value.find(course => course.name == newVal).id,
+                    idcourse: listCoursesData.value.find(course => course.name == newVal).id,
                     name: newVal,
                     examQuestions: 0,
                 }
