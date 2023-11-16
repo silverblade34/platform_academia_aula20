@@ -52,6 +52,7 @@ export default ({
                         store.commit('setUsuario', response.data.data.username);
                         store.commit('setRol', response.data.data.rol);
                         store.commit('setCodigo', response.data.data.codigo);
+                        store.commit('setIdUser', response.data.data.id);
                         store.commit('setIsAuthenticated', true);
                         router.push('/');
 

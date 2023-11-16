@@ -2,15 +2,13 @@
     <div class="text-center">
         <v-menu v-model="menu" :close-on-content-click="false" location="end" @click:outside="rotateIcon">
             <template v-slot:activator="{ props }">
-                <i v-bind="props"
-                    :class="['fa-solid fa-chevron-down fa-xs text-gray-400 cursor-pointer', { 'rotated': isRotated }]"
-                    @click="rotateIcon"></i>
+                <v-btn icon="mdi-chevron-down" size="small" variant="text" v-bind="props" :class="{ 'rotated': isRotated }"
+                    @click="rotateIcon"></v-btn>
             </template>
 
             <v-card min-width="200">
                 <v-list>
-                    <v-list-item :prepend-avatar="avatarPath" :title="username"
-                        :subtitle="rol">
+                    <v-list-item :prepend-avatar="avatarPath" :title="username" :subtitle="rol">
                         <template v-slot:append>
                             <v-btn variant="text" :class="fav ? 'text-red' : ''" icon="mdi-heart"
                                 @click="fav = !fav"></v-btn>

@@ -2,14 +2,16 @@
     <h1 class="font-bold text-xl text-gray-500 title-views">Especialidades</h1>
     <div class="py-5">
         <div class="grid grid-cols-4 gap-5 w-full">
-            <CardSpecialtie v-for="specialtie in listCardsSpecialtie" :title="specialtie.curso" :id="specialtie.id"
-                :key="specialtie" />
+            <CardSpecialtie v-for="specialtie in listCardsSpecialtie" :title="specialtie.course.name" :id="specialtie.course.id"
+                :key="specialtie.course.id" />
         </div>
     </div>
 </template>
 <script>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CardSpecialtie from "@/components/specialties/CardSpecialtie.vue"
+import {courseTeacherApi} from '@/api/teacher/CourseService';
+import store from '@/store';
 
 export default ({
     name: 'SpecialtiesView',
@@ -17,16 +19,13 @@ export default ({
         CardSpecialtie
     },
     setup() {
-        const listCardsSpecialtie = ref([
-            {
-                curso: 'Geometria',
-                id: 1
-            },
-            {
-                curso: 'Trigonometria',
-                id: 2
-            }
-        ])
+        const listCardsSpecialtie = ref([])
+
+        onMounted(async () => {
+            const coursesTeacherResponse = await courseTeacherApi(store.state.codigo)
+            listCardsSpecialtie.value = coursesTeacherResponse.data.data
+        }) 
+
         return {
             listCardsSpecialtie
         }

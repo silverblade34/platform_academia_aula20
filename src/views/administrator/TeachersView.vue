@@ -96,9 +96,9 @@ export default ({
         }
 
         const onCoursesItem = (data) => {
-            coursesTeacher.value = data.data.teacherCourses.map(courseid => {
+            coursesTeacher.value = data.data.teacherCourses.map(teachercourse => {
                 return {
-                    name: listCourses.value.find(course => course.id == courseid.id).name
+                    name: teachercourse.course.name
                 }
             })
             openModalCourses.value = true;

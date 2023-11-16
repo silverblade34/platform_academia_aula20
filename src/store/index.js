@@ -1,14 +1,14 @@
 import { createStore } from "vuex";
 
-const localStorageKey = 'DJsdfg-2352LLDSF-dfg-jsah33454-//';
-//const localStorageKey = 'myAppData'; 
+const localStorageKey = 'DJsdfg-2352LLDSF-dfg-jsah33454-//4415gfsfd';
 
 export default createStore({
     state: {
         isAuthenticated: false,
         rol: '',
         usuario: '',
-        codigo: ''
+        codigo: '',
+        idUser: ''
     },
     getters: {
 
@@ -16,6 +16,10 @@ export default createStore({
     mutations: {
         setIsAuthenticated(state, value) {
             state.isAuthenticated = value;
+            localStorage.setItem(localStorageKey, JSON.stringify(state));
+        },
+        setIdUser(state, value){
+            state.idUser = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
         setRol(state, value){

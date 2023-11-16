@@ -5,12 +5,9 @@
                 <v-card color="white" theme="dark">
                     <div class="d-flex flex-no-wrap justify-space-between border-red-500 px-3 py-1">
                         <div class="card_specialtie">
-                            <v-card-title class="text-lg text-gray-600">
+                            <v-card-title class="text-md text-gray-600">
                                 {{ title }}
                             </v-card-title>
-
-                            <v-card-subtitle>Foster the People</v-card-subtitle>
-
                             <v-card-actions>
                                 <router-link :to="'/temarioscurso_profesores/' + id">
                                     <v-btn class="ms-2" variant="outlined" size="small" color="blue">
