@@ -3,10 +3,12 @@
         <v-row dense>
             <v-col cols="12">
                 <v-card color="white" theme="dark">
-                    <div class="d-flex flex-no-wrap justify-space-between border-red-500 px-3 py-1">
-                        <div class="card_specialtie">
-                            <v-card-title class="text-md text-gray-600">
-                                {{ title }}
+                    <div class="grid grid-cols-6 border-red-500 px-3 py-1">
+                        <div class="card_specialtie col-span-4">
+                            <v-card-title class="text-gray-600 pb-4 pt-2">
+                                <span class="text-sm">
+                                    {{ title }}
+                                </span>
                             </v-card-title>
                             <v-card-actions>
                                 <router-link :to="'/temarioscurso_profesores/' + id">
@@ -17,7 +19,7 @@
                             </v-card-actions>
                         </div>
 
-                        <v-avatar class="ma-3" size="125" rounded="0">
+                        <v-avatar class="ma-3 col-span-2" size="100" rounded="0">
                             <v-img
                                 src="https://static.vecteezy.com/system/resources/previews/007/488/567/non_2x/geometry-course-concept-icon-geometrical-shapes-triangle-on-whiteboard-mathematical-problem-idea-thin-line-illustration-school-subjects-isolated-outline-drawing-editable-stroke-vector.jpg"></v-img>
                         </v-avatar>

@@ -67,7 +67,7 @@ export default {
                     to: "/especialidades",
                     label: "Especialidades",
                     children: [],
-                    icon: "fa-solid fa-circle-question mr-2"
+                    icon: "fa-solid fa-book-open mr-2"
                 }
             ]
         } else if (store.state.rol == "ADMINISTRADOR") {

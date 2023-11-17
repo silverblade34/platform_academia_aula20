@@ -56,6 +56,7 @@ const router = createRouter({
                         const hasIdParam = to.params.id;
                         console.log(hasIdParam)
                         if (!hasIdParam) {
+                            console.log("-acceso denegado-")
                             // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
                             next({ name: 'especialidades' });
                         } else {
