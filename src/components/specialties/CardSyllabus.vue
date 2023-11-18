@@ -20,7 +20,7 @@
                 </v-card-text>
             </v-card-item>
             <v-card-actions class="flex justify-end px-5 content_btn">
-                <router-link :to="'/administrar_preguntas/' + id">
+                <router-link :to="'/administrar_preguntas/' + syllabusId">
                     <v-btn size="small" color="teal-lighten-2" variant="flat">
                         Crear
                     </v-btn>
@@ -32,6 +32,7 @@
 <script>
 export default {
     props: {
+        syllabusId: Number,
         syllabusItems: Array,
         courseName: String,
         syllabusName: String

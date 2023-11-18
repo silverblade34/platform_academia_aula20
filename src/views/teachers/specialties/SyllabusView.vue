@@ -7,7 +7,7 @@
         <div class="py-5">
             <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-5 w-full">
                 <CardSyllabus v-for="syllabus in courseSyllabus.syllabus" :syllabusItems="syllabus.itemsWithColor"
-                    :courseName="courseSyllabus.name" :syllabusName="syllabus.name" :key="syllabus.id" />
+                    :courseName="courseSyllabus.name" :syllabusName="syllabus.name" :key="syllabus.id" :syllabusId="syllabus.id"/>
             </div>
         </div>
     </section>
