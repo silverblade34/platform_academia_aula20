@@ -18,7 +18,7 @@
                         <div class="grid grid-cols-5 gap-2">
                             <div class="col-span-2 text-xs">
                                 <v-text-field label="Nombre del tema" color="blue" v-model="namesubject" variant="outlined"
-                                    prepend-inner-icon="mdi-format-text" density="compact" class="text-xs"></v-text-field>
+                                    prepend-inner-icon="mdi-format-text" density="compact"></v-text-field>
                                 <v-textarea label="Descripción del tema" color="blue" v-model="descriptionsubject"
                                     variant="outlined" prepend-inner-icon="mdi-text-box-edit"
                                     placeholder="Separa los items por un '-', ejemplo: -Item 1 - Item 2" rows="8"
