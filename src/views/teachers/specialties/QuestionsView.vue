@@ -9,15 +9,28 @@
             <ModalCreate @create-item="onCreateItem" />
         </div>
         <div class="py-5">
-            <TableQuestion :desserts="syllabusQuestions.questions" />
+            <TableQuestion :desserts="syllabusQuestions.questions" @delete-item="onDeleteItem" />
         </div>
     </section>
+    <v-dialog v-model="dialogLoader" :scrim="false" persistent width="auto">
+        <v-card color="blue">
+            <v-card-text>
+                Se esta procesando
+                <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
 </template>
 <script>
 import { onMounted, ref } from 'vue';
 import TableQuestion from '@/components/specialties/questions/TableQuestion.vue';
-import { findAllQuestionSyllabusApi, createQuestionApi } from '@/api/teacher/QuestionsService';
-import { basicAlert } from '@/helpers/SweetAlert';
+import {
+    findAllQuestionSyllabusApi,
+    createQuestionApi,
+    createPossibleAnswers,
+    deleteQuestionApi
+} from '@/api/teacher/QuestionsService';
+import { basicAlert, confirmBasic } from '@/helpers/SweetAlert';
 import ModalCreate from '@/components/specialties/questions/ModalCreate.vue';
 
 export default ({
@@ -30,6 +43,7 @@ export default ({
     },
     setup(props) {
         const syllabusQuestions = ref({});
+        const dialogLoader = ref(false);
 
         onMounted(async () => {
             realoadData();
@@ -46,6 +60,7 @@ export default ({
         }
 
         const onCreateItem = async (data) => {
+            dialogLoader.value = true
             const formData = new FormData();
             formData.append('description', data.description);
             formData.append('descriptionAnswer', data.descriptionAnswer);
@@ -72,17 +87,43 @@ export default ({
 
             await createQuestionApi(formData)
                 .then(response => {
-                    console.log(response.data)
-                    realoadData();
+                    const optionsAnswer = {
+                        idQuestion: response.data.data.id,
+                        optionsAnswer: data.optionsAnswer
+                    }
+                    createPossibleAnswers(optionsAnswer)
+                        .then(() => {
+                            dialogLoader.value = false
+                            basicAlert(() => {
+                                realoadData();
+                            }, 'success', 'Logrado', "La pregunta se ha creado correctamente")
+                        })
                 })
-                .catch(error => {
-                    console.log(error)
+                .catch(() => {
+                    dialogLoader.value = false
+                    basicAlert(() => { }, 'error', 'Error', "Ha sucedido un error al crear la pregunta")
                 })
         }
 
+        const onDeleteItem = (data) => {
+            confirmBasic(() => {
+                deleteQuestionApi(data.id)
+                    .then(response => {
+                        basicAlert(() => {
+                            realoadData();
+                        }, 'success', 'Logrado', response.data.message)
+                    })
+                    .catch(() => {
+                        basicAlert(() => { }, 'error', 'Error', "Ha sucedido un error al eliminar la pregunta")
+                    })
+            }, '¿Estás seguro de eliminar esta pregunta?', 'Eliminar');
+        }
+
         return {
+            dialogLoader,
             syllabusQuestions,
-            onCreateItem
+            onCreateItem,
+            onDeleteItem
         }
     }
 })

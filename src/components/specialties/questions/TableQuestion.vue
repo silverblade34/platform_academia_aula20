@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="desserts" class="elevation-1 text-sm">
+  <v-data-table :headers="headers" :items="desserts" class="elevation-1 text-xs">
     <template v-slot:[`item.description`]="{ item }">
       <span>{{ truncateDescription(item) }}</span>
     </template>
@@ -30,7 +30,8 @@
 <script>
 import { ref } from 'vue';
 import { VDataTable } from 'vuetify/labs/VDataTable';
-import { findAllPossibleAnswersQuestionApi } from '@/api/teacher/QuestionsService';
+import { findAllPossibleAnswersApi } from '@/api/teacher/QuestionsService';
+import { basicAlert } from '@/helpers/SweetAlert';
 import Swal from 'sweetalert2';
 
 export default ({
@@ -48,7 +49,8 @@ export default ({
       return item.raw.description;
     }
   },
-  setup() {
+  emits: ['delete-item'],
+  setup(_, { emit }) {
     const baseURL = process.env.VUE_APP_BASE_URL;
     const headers = ref([
       {
@@ -59,16 +61,16 @@ export default ({
       },
       { title: 'Img. descripción', key: 'imageQuestion' },
       { title: 'Descripción solucionario', key: 'descriptionAnswer' },
-      { title: 'Img. solucionario', key: 'imageAnswer' },
+      { title: 'Img. resolución', key: 'imageAnswer' },
       { title: 'Opciones de respuesta', key: 'optionsAnswer' },
       { title: 'Actions', key: 'actions', align: 'center' },
     ])
 
     const editItem = (item) => {
-      console.log(item.columns)
+      console.log(item.raw)
     }
     const deleteItem = (item) => {
-      console.log(item.columns)
+      emit('delete-item', { id: item.raw.id })
     }
 
     const viewImage = (pathImage) => {
@@ -92,15 +94,14 @@ export default ({
     };
 
     const viewOptionsAnswer = (id) => {
-      findAllPossibleAnswersQuestionApi(id)
+      findAllPossibleAnswersApi(id)
         .then(response => {
-          console.log(response.data.data)
-          let htmlContent = '<p class="pb-5">Lista de opciones de respuesta</p>';
+          let htmlContent = '<p class="pb-7">Lista de opciones de respuesta</p>';
 
           response.data.data.forEach(option => {
-            const color = option.status ? '#2DE500' : '#959595';
+            const color = option.status ? '#4BCF00' : '#CBCBCB';
             htmlContent += `
-          <div class="rounded-lg p-3 mb-2 ${color} text-white" style="background-color: ${color}"">
+          <div class="rounded-lg p-3 mb-2 ${color} text-white text-sm" style="background-color: ${color}"">
             ${option.description}
           </div>
         `;
@@ -112,7 +113,7 @@ export default ({
           });
         })
         .catch(error => {
-          console.log(error.response.data)
+          basicAlert(() => { }, 'error', 'Error', error.response.data.message)
         })
     }
 

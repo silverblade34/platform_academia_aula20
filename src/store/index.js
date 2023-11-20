@@ -8,7 +8,8 @@ export default createStore({
         rol: '',
         usuario: '',
         codigo: '',
-        idUser: ''
+        idUser: '',
+        evaluationGenerate: {}
     },
     getters: {
 
@@ -18,20 +19,24 @@ export default createStore({
             state.isAuthenticated = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
-        setIdUser(state, value){
+        setIdUser(state, value) {
             state.idUser = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
-        setRol(state, value){
+        setRol(state, value) {
             state.rol = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
-        setUsuario(state, value){
+        setUsuario(state, value) {
             state.usuario = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
-        setCodigo(state, value){
+        setCodigo(state, value) {
             state.codigo = value;
+            localStorage.setItem(localStorageKey, JSON.stringify(state));
+        },
+        setEvaluationGenerate(state, value) {
+            state.evaluationGenerate = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
         // Agregar una mutación para inicializar el estado desde localStorage al cargar la página

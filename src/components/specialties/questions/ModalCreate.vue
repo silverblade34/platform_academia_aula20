@@ -11,7 +11,7 @@
                 <v-card-text>
                     <v-col cols="12">
                         <v-textarea label="Descripción de la pregunta" variant="outlined" color="blue" class="smaller-text"
-                            v-model="description"></v-textarea>
+                            v-model="description" rows="7"></v-textarea>
                         <v-file-input label="Imagen pregunta (opcional)" color="blue"
                             v-model="imageQuestion"></v-file-input>
                         <v-textarea label="Descripción de la respuesta" variant="outlined" color="blue" class="smaller-text"

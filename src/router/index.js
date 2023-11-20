@@ -43,6 +43,21 @@ const router = createRouter({
                     component: () => import("@/views/student/courses/ExamView.vue")
                 },
                 {
+                    name: "resultado/curso/examen",
+                    path: "resultado/curso/examen/:id",
+                    props: true,
+                    component: () => import("@/views/student/courses/evaluation/ResultCourseEvaluation.vue"),
+                    beforeEnter: (to, from, next) => {
+                        const hasIdParam = to.params.id;
+                        if (!hasIdParam) {
+                            // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
+                            next({ name: 'cursos' });
+                        } else {
+                            next(); // Continuar con la navegación si se proporciona un :id
+                        }
+                    },
+                },
+                {
                     name: "especialidades",
                     path: "especialidades",
                     component: () => import("@/views/teachers/specialties/SpecialtiesView.vue"),
@@ -56,7 +71,6 @@ const router = createRouter({
                         const hasIdParam = to.params.id;
                         console.log(hasIdParam)
                         if (!hasIdParam) {
-                            console.log("-acceso denegado-")
                             // Si no se proporciona un :id, redirige a otra vista, por ejemplo, "acceso-denegado"
                             next({ name: 'especialidades' });
                         } else {
