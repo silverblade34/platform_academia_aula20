@@ -17,3 +17,7 @@ export function generateCourseEvaluationApi(data) {
 export function createCourseEvaluationApi(data) {
     return axios.post(`${baseURL}/course-evaluation`, data)
 }
+
+export function findOneCourseEvaluationApi(courseEvaluationId) {
+    return axios.get(`${baseURL}/course-evaluation/${courseEvaluationId}`)
+}

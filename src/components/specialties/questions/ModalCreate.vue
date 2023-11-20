@@ -76,7 +76,7 @@ export default {
         const dialog = ref(false);
         const description = ref('');
         const imageQuestion = ref();
-        const descriptionAnswer = ref();
+        const descriptionAnswer = ref('');
         const imageAnswer = ref();
         const correctAnswer = ref('');
         const option1 = ref('');
@@ -111,6 +111,8 @@ export default {
             })
 
             dialog.value = false
+            description.value = descriptionAnswer.value = correctAnswer.value = option1.value = option2.value = option3.value = option4.value = ""
+            imageQuestion.value = imageAnswer.value = {}
         }
 
         return {
