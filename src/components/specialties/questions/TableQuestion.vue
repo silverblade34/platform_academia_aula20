@@ -51,7 +51,6 @@ export default ({
   },
   emits: ['delete-item'],
   setup(_, { emit }) {
-    const baseURL = process.env.VUE_APP_BASE_URL;
     const headers = ref([
       {
         title: 'Descripción',
@@ -83,7 +82,7 @@ export default ({
         return; // Sale de la función si no hay una imagen cargada
       }
 
-      const imageUrl = `${baseURL}/questions/getImage/${pathImage}`;
+      const imageUrl = `http://localhost:3000/api/v1/questions/getImage/${pathImage}`;
 
       Swal.fire({
         imageUrl: imageUrl,

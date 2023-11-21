@@ -48,18 +48,18 @@ export default {
                     children: [],
                     icon: "fa-solid fa-book-open mr-2"
                 },
-                {
-                    to: "/simulacro",
-                    label: "Simulacro",
-                    children: [],
-                    icon: "fa-solid fa-graduation-cap mr-2"
-                },
-                {
-                    to: "/reporte",
-                    label: "Reporte",
-                    children: [],
-                    icon: "fa-solid fa-table mr-2"
-                }
+                // {
+                //     to: "/simulacro",
+                //     label: "Simulacro",
+                //     children: [],
+                //     icon: "fa-solid fa-graduation-cap mr-2"
+                // },
+                // {
+                //     to: "/reporte",
+                //     label: "Reporte",
+                //     children: [],
+                //     icon: "fa-solid fa-table mr-2"
+                // }
             ]
         } else if (store.state.rol == "PROFESOR") {
             navItems.value = [

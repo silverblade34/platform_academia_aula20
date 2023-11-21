@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 rounded-lg bg-white shadow-sm min-h-[15rem]">
+    <div class="min-h-[15rem]">
         <Line :data="data" :options="options" />
     </div>
 </template>
@@ -15,6 +15,7 @@ import {
     Legend
 } from 'chart.js';
 import { Line } from 'vue-chartjs';
+import { ref, watch } from 'vue';
 
 ChartJS.register(
     CategoryScale,
@@ -30,17 +31,36 @@ export default {
     components: {
         Line
     },
-    setup() {
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Data One',
-                    backgroundColor: '#f87979',
-                    data: [40, 39, 10, 40, 39, 80, 40]
+    props: {
+        dataChart: Array
+    },
+    setup(props) {
+        const data = ref(
+            {
+                labels: [],
+                datasets: [
+                    {
+                        backgroundColor: ['#FFD1DC', '#FFD700', '#B2FF66', '#AEC6CF'],
+                        data: []
+                    }
+                ]
+            }
+        );
+
+        watch(() => props.dataChart, (newVal) => {
+            if (newVal.length > 0) {
+                data.value = {
+                    labels: props.dataChart.map(data => data.day),
+                    datasets: [
+                        {
+                            label: 'Preguntas',
+                            backgroundColor: '#f87979',
+                            data: props.dataChart.map(data => data.amount)
+                        }
+                    ]
                 }
-            ]
-        }
+            }
+        })
 
         const options = {
             responsive: true,

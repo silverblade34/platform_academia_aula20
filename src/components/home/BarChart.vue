@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 rounded-lg bg-white shadow-sm min-h-[15rem]">
+    <div class="min-h-[15rem]">
         <Bar :data="data" :options="options" />
     </div>
 </template>
@@ -13,7 +13,8 @@ import {
     CategoryScale,
     LinearScale
 } from 'chart.js'
-import { Bar } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs';
+import { ref, watch } from 'vue';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 export default {
@@ -21,34 +22,83 @@ export default {
     components: {
         Bar
     },
-    setup() {
-        const data = {
-            labels: [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December'
-            ],
-            datasets: [
-                {
-                    label: 'Data One',
-                    backgroundColor: '#f87979',
-                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+    props: {
+        dataChart: Array
+    },
+    setup(props) {
+        const data = ref(
+            {
+                labels: [],
+                datasets: [
+                    {
+                        backgroundColor: [
+                            '#FFD700', // Amarillo pastel
+                            '#B2FF66', // Verde pastel
+                            '#AEC6CF', // Azul grisáceo pastel
+                            '#ADD8E6', // Azul claro
+                            '#87CEEB', // Azul cielo
+                            '#98FB98', // Verde claro
+                            '#FFFACD', // Beige
+                            '#F0E68C', // Amarillo claro
+                            '#F5DEB3', // Trigo
+                            '#FFA07A', // Salmón claro
+                            '#FFEBCD', // Blanco antiguo
+                            '#D8BFD8', // Lavanda
+                            '#FAEBD7', // Blanco almendra
+                            '#F0F8FF', // Azul Alice
+                            '#FFFFE0',
+                            '#E0FFFF',
+                            '#F5F5DC',
+                            '#FFEFD5'
+                        ],
+                        data: []
+                    }
+                ]
+            }
+        );
+
+        watch(() => props.dataChart, (newVal) => {
+            if (newVal.length > 0) {
+                data.value = {
+                    labels: props.dataChart.map(data => data.course),
+                    datasets: [
+                        {
+                            label: 'Preguntas',
+                            backgroundColor: [
+                                '#FFD700', // Amarillo pastel
+                                '#B2FF66', // Verde pastel
+                                '#AEC6CF', // Azul grisáceo pastel
+                                '#ADD8E6', // Azul claro
+                                '#87CEEB', // Azul cielo
+                                '#98FB98', // Verde claro
+                                '#FFFACD', // Beige
+                                '#F0E68C', // Amarillo claro
+                                '#F5DEB3', // Trigo
+                                '#FFA07A', // Salmón claro
+                                '#FFEBCD', // Blanco antiguo
+                                '#D8BFD8', // Lavanda
+                                '#FAEBD7', // Blanco almendra
+                                '#F0F8FF', // Azul Alice
+                                '#FFFFE0',
+                                '#E0FFFF',
+                                '#F5F5DC',
+                                '#FFEFD5'
+                            ],
+                            data: props.dataChart.map(data => data.amount)
+                        }
+                    ]
                 }
-            ]
-        }
+            }
+        })
 
         const options = {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
         }
         return {
             options,

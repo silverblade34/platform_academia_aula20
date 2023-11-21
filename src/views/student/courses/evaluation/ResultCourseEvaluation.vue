@@ -18,9 +18,13 @@
                     <v-expansion-panel-text>
                         <div class="w-full text-xs">
                             <div>
-                                {{ question.question.description }}
-                                <img :src="'http://localhost:3000/api/v1/questions/getImage/' + question.question.imageQuestion"
-                                    alt="" class="max-w-[300px]">
+                                <p class="pb-4">
+                                    {{ question.question.description }}
+                                </p>
+                                <div class="flex justify-center">
+                                    <img :src="baseURL + '/questions/getImage/' + question.question.imageQuestion" alt=""
+                                        class="max-w-[300px]">
+                                </div>
                             </div>
                             <div class="pt-5">
                                 <p><span class="font-bold"> Descripción respuesta: </span>{{
@@ -118,6 +122,7 @@ export default ({
             studentName,
             startTime,
             endTime,
+            baseURL,
             timeGiven,
             viewImage
         }

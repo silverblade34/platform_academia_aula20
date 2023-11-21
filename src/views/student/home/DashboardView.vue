@@ -6,86 +6,22 @@
             <CardPerfomance />
         </div>
         <div class="grid grid-cols-3 gap-6 pb-6">
-            <BarChart />
-            <DoughnutChart />
-            <LineChart />
+            <div class="p-4 rounded-lg bg-white shadow-sm">
+                <p class="title-views text-center text-gray-500 pb-3">Evaluaciones realizadas por curso</p>
+                <BarChart :dataChart="dataBarChart" />
+            </div>
+            <div class="p-4 rounded-lg bg-white shadow-sm">
+                <p class="title-views text-center text-gray-500 pb-3">Preguntas evaluadas por curso</p>
+                <DoughnutChart :dataChart="dataDoughnutChart" />
+            </div>
+            <div class="p-4 rounded-lg bg-white shadow-sm">
+                <p class="title-views text-center text-gray-500 pb-3">Exámenes realizados por día</p>
+                <LineChart :dataChart="dataLineChart" />
+            </div>
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Product name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Color
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Price
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            Magic Mouse 2
-                        </th>
-                        <td class="px-6 py-4">
-                            Black
-                        </td>
-                        <td class="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td class="px-6 py-4">
-                            $99
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <TableCourseEvaluations :desserts="courseEvaluationsData"/>
         </div>
     </div>
 </template>
@@ -95,6 +31,11 @@ import DoughnutChart from '@/components/home/DoughnutChart.vue';
 import LineChart from '@/components/home/LineChart.vue';
 import CardResume from '@/components/home/CardResume.vue';
 import CardPerfomance from '@/components/home/CardPerfomance.vue';
+import { dashboardCourseEvaluationsApi, findAllCourseEvaluationsApi } from '@/api/student/DashboardService';
+import TableCourseEvaluations from '@/components/home/TableCourseEvaluations.vue';
+import store from '@/store';
+import { onMounted, ref } from 'vue';
+
 
 export default ({
     components: {
@@ -102,9 +43,28 @@ export default ({
         DoughnutChart,
         LineChart,
         CardResume,
-        CardPerfomance
+        CardPerfomance,
+        TableCourseEvaluations
     },
     setup() {
+        const dataBarChart = ref([]);
+        const dataDoughnutChart = ref([]);
+        const dataLineChart = ref([]);
+        const courseEvaluationsData = ref([]);
+
+        onMounted(() => {
+            dashboardCourseEvaluationsApi(store.state.codigo)
+                .then(response => {
+                    dataBarChart.value = response.data.data.barChart
+                    dataDoughnutChart.value = response.data.data.doughnutChart
+                    dataLineChart.value = response.data.data.lineChart
+                })
+            findAllCourseEvaluationsApi(store.state.codigo)
+                .then(response => {
+                    courseEvaluationsData.value = response.data.data
+                })
+        })
+
         const listCards = [
             {
                 title: "Simulacros realizados",
@@ -126,6 +86,10 @@ export default ({
             }
         ]
         return {
+            courseEvaluationsData,
+            dataBarChart,
+            dataDoughnutChart,
+            dataLineChart,
             listCards
         }
     }
