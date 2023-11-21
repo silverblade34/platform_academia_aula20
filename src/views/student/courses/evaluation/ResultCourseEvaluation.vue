@@ -22,7 +22,7 @@
                                     {{ question.question.description }}
                                 </p>
                                 <div class="flex justify-center">
-                                    <img :src="baseURL + '/questions/getImage/' + question.question.imageQuestion" alt=""
+                                    <img :src="'http://198.211.99.223:3000/questions/getImage/' + question.question.imageQuestion" alt=""
                                         class="max-w-[300px]">
                                 </div>
                             </div>

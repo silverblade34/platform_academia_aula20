@@ -82,7 +82,7 @@ export default ({
         return; // Sale de la función si no hay una imagen cargada
       }
 
-      const imageUrl = `http://localhost:3000/api/v1/questions/getImage/${pathImage}`;
+      const imageUrl = `http://198.211.99.223:3000/api/v1/questions/getImage/${pathImage}`;
 
       Swal.fire({
         imageUrl: imageUrl,

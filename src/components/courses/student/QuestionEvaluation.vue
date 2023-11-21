@@ -4,7 +4,7 @@
         {{ question.description }}
     </span>
     <div class="w-full flex justify-center items-center pt-4">
-        <img :src="'http://localhost:3000/api/v1/questions/getImage/' + question.imageQuestion" alt=""
+        <img :src="'http://198.211.99.223:3000/api/v1/questions/getImage/' + question.imageQuestion" alt=""
             class="max-w-[300px]">
     </div>
     <v-radio-group v-model="selectedAnswer">
